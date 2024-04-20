@@ -18,7 +18,7 @@ export default function Adminlogin () {
     function onSubmitForm(values) {
         console.log("INI", values)
 
-        axios.post("http://localhost:3000/api/v1/user/login", values)
+        axios.post("https://app-rental-mobil.vercel.app/api/v1/user/login", values)
         .then((response) => {
             console.log("INI", response.data.data)
         }).catch((error) => {
