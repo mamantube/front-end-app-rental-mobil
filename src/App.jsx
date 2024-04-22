@@ -4,6 +4,7 @@ import layoutLanding from "./layouts/Landing";
 import Home from "./pages/Home";
 import Admin from "./pages/admin/Index";
 import Adminlogin from "./pages/admin/Login";
+import layoutDefault from "./layouts/Default";
 
 
 export default function App() {
@@ -18,9 +19,12 @@ export default function App() {
           <Route index path="/" Component={Home} />
         </Route>
 
-        <Route path="/admin/login" Component={Adminlogin} />
-        
-        <Route path="/*" element={<h1>Page Not Found :( </h1>} />
+        <Route Component={layoutDefault}>
+          <Route path="/admin/login" Component={Adminlogin} />
+          <Route path="/*" element={<h1>Page Not Found :( </h1>} />
+
+        </Route>
+
       </Routes>
     </BrowserRouter>
 
