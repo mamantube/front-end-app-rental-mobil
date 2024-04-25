@@ -4,7 +4,15 @@ import { useFormik} from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 import useLoading from "../../hooks/useLoading";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"
+
+
+
+
+
+
 export default function Adminlogin () {
     const schema = Yup.object({
         email: Yup.string().required("Email harus diisi").email("Format email salah"),
@@ -18,14 +26,23 @@ export default function Adminlogin () {
 
     const { showLoading, hideLoading } = useLoading();
 
+    const dispatch = useDispatch();
+    const navigateTo = useNavigate()
+
     function onSubmitForm(values) {
         showLoading()
         console.log("INI", values)
 
         axios.post("https://app-rental-mobil.vercel.app/api/v1/user/login", values)
         .then((response) => {
-            console.log("INI", response.data.data)
+            let { token } = response.data.data;
+
+            localStorage.setItem("token", token);
+
+            dispatch({ type: "SET_TOKEN", value: token})
+            // console.log("INI", response.data.data)
             toast.success("Login Berhasil")
+            navigateTo("/admin")
         }).catch((error) => {
             let messageError = error.response.data.message;
             // let { message } = errors[0];
