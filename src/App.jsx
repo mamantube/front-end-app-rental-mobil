@@ -1,25 +1,25 @@
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import layoutDashboard from "./layouts/Dashboard";
-import layoutLanding from "./layouts/Landing";
+import LayoutDashboard from "./layouts/Dashboard";
+import LayoutLanding from "./layouts/Landing";
 import Home from "./pages/Home";
 import Admin from "./pages/admin/Index";
 import Adminlogin from "./pages/admin/Login";
-import layoutDefault from "./layouts/Default";
+import LayoutDefault from "./layouts/Default";
 
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route Component={layoutDashboard}>
+        <Route Component={LayoutDashboard}>
           <Route index path="/admin" Component={Admin} />
         </Route>
 
-        <Route Component={layoutLanding}>
+        <Route Component={LayoutLanding}>
           <Route index path="/" Component={Home} />
         </Route>
 
-        <Route Component={layoutDefault}>
+        <Route Component={LayoutDefault}>
           <Route path="/admin/login" Component={Adminlogin} />
           <Route path="/*" element={<h1>Page Not Found :( </h1>} />
 

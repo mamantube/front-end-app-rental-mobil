@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { useFormik} from "formik";
 import axios from "axios";
 import * as Yup from "yup";
+import useLoading from "../../hooks/useLoading";
 
 export default function Adminlogin () {
     const schema = Yup.object({
@@ -15,7 +16,9 @@ export default function Adminlogin () {
         password: "",
     }
 
+    const { showLoading, hideLoading } = useLoading()
     function onSubmitForm(values) {
+        showLoading()
         console.log("INI", values)
 
         axios.post("https://app-rental-mobil.vercel.app/api/v1/user/login", values)
@@ -23,6 +26,8 @@ export default function Adminlogin () {
             console.log("INI", response.data.data)
         }).catch((error) => {
             console.error("ERROR", error.response.data.data.errors)
+        }).finally(() => {
+            hideLoading()
         })
     }
 

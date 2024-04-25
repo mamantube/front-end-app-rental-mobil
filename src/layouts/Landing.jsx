@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-export default function layoutLanding () {
+export default function LayoutLanding () {
     return (
         <>
             <h1>LANDING</h1>
