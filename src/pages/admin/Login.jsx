@@ -4,7 +4,7 @@ import { useFormik} from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 import useLoading from "../../hooks/useLoading";
-
+import { toast } from "react-toastify"
 export default function Adminlogin () {
     const schema = Yup.object({
         email: Yup.string().required("Email harus diisi").email("Format email salah"),
@@ -16,7 +16,8 @@ export default function Adminlogin () {
         password: "",
     }
 
-    const { showLoading, hideLoading } = useLoading()
+    const { showLoading, hideLoading } = useLoading();
+
     function onSubmitForm(values) {
         showLoading()
         console.log("INI", values)
@@ -24,8 +25,12 @@ export default function Adminlogin () {
         axios.post("https://app-rental-mobil.vercel.app/api/v1/user/login", values)
         .then((response) => {
             console.log("INI", response.data.data)
+            toast.success("Login Berhasil")
         }).catch((error) => {
-            console.error("ERROR", error.response.data.data.errors)
+            let messageError = error.response.data.message;
+            // let { message } = errors[0];
+            console.error("ERROR", messageError)
+            toast.error(messageError)
         }).finally(() => {
             hideLoading()
         })
@@ -52,8 +57,7 @@ export default function Adminlogin () {
                                 {Formik.errors.password}
                             </Form.Control.Feedback>
                         </Form.Group>
-
-                            <Button variant="dark" type="submit" className=" w-100">Masuk</Button>
+                        <Button variant="dark" type="submit" className=" w-100">Masuk</Button>
                     </Form>
                 </FormAuth>
         </main>

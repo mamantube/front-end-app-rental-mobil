@@ -4,7 +4,8 @@ import App from './App.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Store from "./store/index.js";
 import { Provider} from "react-redux";
-import "./assets/CSS/Global.css"
+import "./assets/CSS/Global.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
