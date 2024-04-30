@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import LayoutDashboard from "./layouts/Dashboard";
 import LayoutLanding from "./layouts/Landing";
 import Home from "./pages/Home";
-import Admin from "./pages/admin/Index";
+import DataMobil from "./pages/admin/data-mobil/Index";
 import Adminlogin from "./pages/admin/Login";
 import LayoutDefault from "./layouts/Default";
 
@@ -12,7 +12,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route Component={LayoutDashboard}>
-          <Route index path="/admin" Component={Admin} />
+          <Route index path="/admin/data-mobil" Component={DataMobil} />
         </Route>
 
         <Route Component={LayoutLanding}>

@@ -1,7 +1,7 @@
 export default function Admin () {
     return (
         <>
-            <h2>ADMIN</h2>
+            <h2>Data Mobil</h2>
         </>
     )
 }

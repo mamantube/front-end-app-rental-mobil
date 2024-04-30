@@ -6,6 +6,7 @@ import Store from "./store/index.js";
 import { Provider} from "react-redux";
 import "./assets/CSS/Global.css";
 import 'react-toastify/dist/ReactToastify.css';
+import "bootstrap-icons/font/bootstrap-icons.min.css";
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

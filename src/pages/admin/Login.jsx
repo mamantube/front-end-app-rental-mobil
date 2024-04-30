@@ -42,7 +42,7 @@ export default function Adminlogin () {
             dispatch({ type: "SET_TOKEN", value: token})
             // console.log("INI", response.data.data)
             toast.success("Login Berhasil")
-            navigateTo("/admin")
+            navigateTo("/admin/data-mobil")
         }).catch((error) => {
             let messageError = error.response.data.message;
             // let { message } = errors[0];
