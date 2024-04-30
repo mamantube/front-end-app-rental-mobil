@@ -9,13 +9,12 @@ export default function LayoutDashboard () {
         setShow(!show)
     }
 
-    let cssShowMenu  = "";
-    if (show) cssShowMenu = "d-block";
-    else cssShowMenu = "d-none";
+    let cssShowMenu  = show ? "d-block" : "d-none";
+    
 
     return (
         <>
-            <Navbar variant="light" className=" border-bottom border-light shadow-sm" 
+            <Navbar variant="light" className=" border-bottom border-light shadow-sm py-3" 
             // style={{ height: "5rem"}} 
             expand="md" collapseOnSelect >
                 <Container>
