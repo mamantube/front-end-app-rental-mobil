@@ -5,8 +5,8 @@ import axios from "axios";
 import * as Yup from "yup";
 import useLoading from "../../hooks/useLoading";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Navigate } from "react-router-dom"
 
 
 
@@ -53,11 +53,16 @@ export default function Adminlogin () {
         })
     }
 
+
     const Formik = useFormik({
         initialValues: initialForm,
         validationSchema: schema,
         onSubmit: onSubmitForm
     })
+
+    const { token } = useSelector((store) => store.user);
+    if (token) return <Navigate to="/admin/data-mobil" replace />
+    
     return (
         <main id="container__login__admin" className="d-flex justify-content-center align-items-center min-vh-100">
                 <FormAuth title="Masuk ke Dashboard" subTitle="Masukkan Email dan Password Admin">

@@ -1,6 +1,7 @@
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, Navigate } from "react-router-dom";
 import { Navbar, Container, Button, Nav} from "react-bootstrap";
 import { useState} from "react"
+import { useSelector } from "react-redux"
 
 export default function LayoutDashboard () {
     const [show, setShow] = useState(false);
@@ -10,6 +11,9 @@ export default function LayoutDashboard () {
     }
 
     let cssShowMenu  = show ? "d-block" : "d-none";
+
+    const { token } = useSelector((store) => store.user)
+    if (!token) return <Navigate to="/admin/login" replace />
     
 
     return (
