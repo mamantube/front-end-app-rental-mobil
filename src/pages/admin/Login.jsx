@@ -33,7 +33,7 @@ export default function Adminlogin () {
         showLoading()
         console.log("INI", values)
 
-        axios.post("https://app-rental-mobil.vercel.app/api/v1/user/login", values)
+        axios.post(`${import.meta.env.VITE_BASE_API_URL}/api/v1/user/login`, values)
         .then((response) => {
             let { token } = response.data.data;
 
