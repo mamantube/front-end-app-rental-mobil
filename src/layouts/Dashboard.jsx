@@ -1,7 +1,8 @@
 import { Outlet, NavLink, Navigate } from "react-router-dom";
 import { Navbar, Container, Button, Nav} from "react-bootstrap";
-import { useState} from "react"
-import { useSelector } from "react-redux"
+import { useState} from "react";
+import { useSelector } from "react-redux";
+import Footer from "../components/Footer";
 
 export default function LayoutDashboard () {
     const [show, setShow] = useState(false);
@@ -47,8 +48,11 @@ export default function LayoutDashboard () {
                 </Container>
             </Navbar>
 
+            <Container className=" my-5">
+                <Outlet key="layout-dashboard" />
+            </Container>
 
-            <Outlet key="layout-dashboard" />
+            <Footer />
         </>
 
     )
