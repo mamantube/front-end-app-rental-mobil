@@ -94,6 +94,15 @@ html {
     font-weight: 600;
 }
 
+/* Padding and Margin */
+.p-16 {
+    padding: 1rem;
+}
+
+.m-16 {
+    margin: 1rem;
+}
+
 /* Coloring Navigation */
 
 .inactive {
