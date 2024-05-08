@@ -3,6 +3,7 @@ import { Navbar, Container, Button, Nav} from "react-bootstrap";
 import { useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Footer from "../components/Footer";
+import { ToastContainer } from "react-toastify";
 
 export default function LayoutDashboard () {
     const [show, setShow] = useState(false);
@@ -36,6 +37,7 @@ export default function LayoutDashboard () {
 
     return (
         <>
+            <ToastContainer position="top-right" />
             <Navbar variant="light" className=" border-bottom border-light shadow-sm py-3" 
             // style={{ height: "5rem"}} 
             expand="md" collapseOnSelect >
