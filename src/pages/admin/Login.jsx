@@ -44,12 +44,8 @@ export default function Adminlogin () {
             // console.log("INI", response.data.data)
             navigateTo("/admin/data-mobil")
             toast.success("Login Berhasil")
-        }).catch((error) => {
-            let messageError = error.response.data.message;
-            // let { message } = errors[0];
-            console.error("ERROR", messageError)
-            toast.error(messageError)
-        }).finally(() => {
+        })
+        .finally(() => {
             hideLoading()
         })
     }
