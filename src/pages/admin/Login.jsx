@@ -1,12 +1,12 @@
 import FormAuth from "../../components/FormAuth";
 import { Button, Form } from "react-bootstrap";
 import { useFormik} from "formik";
-import axios from "axios";
 import * as Yup from "yup";
 import useLoading from "../../hooks/useLoading";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom"
+import useAxios from "../../hooks/useAxios";
 
 
 
@@ -27,13 +27,14 @@ export default function Adminlogin () {
     const { showLoading, hideLoading } = useLoading();
 
     const dispatch = useDispatch();
-    const navigateTo = useNavigate()
+    const navigateTo = useNavigate();
+    const axios = useAxios();
 
     function onSubmitForm(values) {
         showLoading()
         console.log("INI", values)
 
-        axios.post(`${import.meta.env.VITE_BASE_API_URL}/api/v1/user/login`, values)
+        axios.post("api/v1/user/login", values)
         .then((response) => {
             let { token } = response.data.data;
 
