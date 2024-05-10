@@ -2,9 +2,9 @@ import NavBreadcrumb from "../../../components/NavBreadcrumb";
 import DataMobilFilter from "../../../components/admin/data-mobil/DataMobilFilter";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
 import useLoading from "../../../hooks/useLoading";
+import useAxios from "../../../hooks/useAxios";
 
 export default function DataMobil () {
     const navigateTo = useNavigate();
@@ -39,10 +39,16 @@ export default function DataMobil () {
         },
     ]
 
+    const axios = useAxios();
+
+    const [ products, setProducts ] = useState([])
+
     useEffect(() => {
         showLoading(); 
 
-        axios.get(`${import.meta.env.VITE_BASE_API_URL}/api/v1/product}`).then((response) => {
+        axios.get("api/v1/product",)
+        .then((response) => {
+            setProducts(response.data.data)
             console.log("RES", response.data) 
         }).catch((error) => {
             let messageError = error.response.data.message;
@@ -53,7 +59,7 @@ export default function DataMobil () {
             hideLoading()
         })
     }, [])
-    
+
     return (
         <section id="list--data--mobil" className=" min-vh-100">
             <NavBreadcrumb navList={navList} />
