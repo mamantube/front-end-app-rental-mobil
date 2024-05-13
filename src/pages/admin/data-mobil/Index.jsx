@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useLoading from "../../../hooks/useLoading";
 import useAxios from "../../../hooks/useAxios";
+import EmptyProduct from "../../../components/EmptyProduct";
 
 export default function DataMobil () {
     const navigateTo = useNavigate();
@@ -49,7 +50,6 @@ export default function DataMobil () {
         axios.get("api/v1/product",)
         .then((response) => {
             setProducts(response.data.data)
-            console.log("RES", response.data) 
         }).catch((error) => {
             let messageError = error.response.data.message;
             // let { message } = errors[0];
@@ -65,6 +65,12 @@ export default function DataMobil () {
             <NavBreadcrumb navList={navList} />
 
             <DataMobilFilter q={params.q} sort_by={params.sort_by} onChangeValue={onChangeParams} onClickSearch={onSearch} onCreateNew={() => navigateTo("/admin/data-mobil/buat-baru")} />
+
+            {products.length ? (
+                <h1>Product</h1>
+            ) : (
+                <EmptyProduct />
+            )}
         </section>
     )
 }
