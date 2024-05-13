@@ -12,7 +12,6 @@ export default function useAxios() {
     axiosInstance.interceptors.request.use(
         (config) => {
             if (token) config.headers["Authorization"] = `Bearer ${token}`;
-            console.log("INI", config);
             return config;
         }, 
         (error) => {

@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useLoading from "../../../hooks/useLoading";
 import useAxios from "../../../hooks/useAxios";
-import EmptyProduct from "../../../components/EmptyProduct";
+import ListProduct from "./ListProduct";
+ListProduct
 
 export default function DataMobil () {
     const navigateTo = useNavigate();
@@ -60,17 +61,14 @@ export default function DataMobil () {
         })
     }, [])
 
+
     return (
         <section id="list--data--mobil" className=" min-vh-100">
             <NavBreadcrumb navList={navList} />
 
             <DataMobilFilter q={params.q} sort_by={params.sort_by} onChangeValue={onChangeParams} onClickSearch={onSearch} onCreateNew={() => navigateTo("/admin/data-mobil/buat-baru")} />
 
-            {products.length ? (
-                <h1>Product</h1>
-            ) : (
-                <EmptyProduct />
-            )}
+            <ListProduct dataProduct={products} />
         </section>
     )
 }

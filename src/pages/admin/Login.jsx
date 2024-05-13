@@ -32,8 +32,6 @@ export default function Adminlogin () {
 
     function onSubmitForm(values) {
         showLoading()
-        console.log("INI", values)
-
         axios.post("api/v1/user/login", values)
         .then((response) => {
             let { token } = response.data.data;
