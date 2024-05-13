@@ -4,6 +4,8 @@ import { useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Footer from "../components/Footer";
 import { ToastContainer } from "react-toastify";
+import useLoading from "../hooks/useLoading";
+import Loading from "../components/Loading";
 
 export default function LayoutDashboard () {
     const [show, setShow] = useState(false);
@@ -31,13 +33,20 @@ export default function LayoutDashboard () {
 
     }
 
+    const { isLoading } = useLoading();
+    
+    let componentLoading;
+    if (isLoading) componentLoading = <Loading />
+    
     const { token } = useSelector((store) => store.user)
     if (!token) return <Navigate to="/admin/login" replace />
+
     
 
     return (
         <>
             <ToastContainer position="top-right" />
+            {componentLoading}
             <Navbar variant="light" className=" border-bottom border-light shadow-sm py-3" 
             // style={{ height: "5rem"}} 
             expand="md" collapseOnSelect >
