@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Card, Row, Col, Form, Button } from "react-bootstrap"
+import { Card, Row, Col, Form, Button } from "react-bootstrap";
 
 export default function DataMobilFilter(props)  {
     let {q, onChangeValue, sort_by, onClickSearch, onCreateNew} = props
@@ -21,8 +21,8 @@ export default function DataMobilFilter(props)  {
                         </Col>
 
                         <Col lg="2" md="3" sm="4" className=" mt-lg-0 mt-3 mt-md-0">
-                            <Button variant="outline-dark" className=" rounded-0 w-100">
-                                <i className="bi bi-search" onClick={onClickSearch}></i> Cari Mobil
+                            <Button variant="outline-dark" className=" rounded-0 w-100" onClick={onClickSearch}>
+                                <i className="bi bi-search"></i> Cari Mobil
                             </Button>
                         </Col>
 

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useLoading from "../../../hooks/useLoading";
 import useAxios from "../../../hooks/useAxios";
-import ListProduct from "./ListProduct";
+import ListProduct from "../../../components/admin/data-mobil/ListProduct";
 ListProduct
 
 export default function DataMobil () {
@@ -29,6 +29,7 @@ export default function DataMobil () {
     }
 
     const onSearch = () => {
+        searchProduct();
         console.log("THIS", params)
     }
 
@@ -43,14 +44,15 @@ export default function DataMobil () {
 
     const axios = useAxios();
 
-    const [ products, setProducts ] = useState([])
+    const [ products, setProducts ] = useState([]);
 
-    useEffect(() => {
+    function searchProduct()  {
         showLoading(); 
 
-        axios.get("api/v1/product",)
+        axios.get("api/v1/product", {params})
         .then((response) => {
             setProducts(response.data.data)
+            console.log(response.data.data)
         }).catch((error) => {
             let messageError = error.response.data.message;
             // let { message } = errors[0];
@@ -59,6 +61,14 @@ export default function DataMobil () {
         }).finally(() => {
             hideLoading()
         })
+    }
+
+    useEffect(() => {
+        searchProduct()
+
+        return () => {
+            setProducts([])
+        }
     }, [])
 
 
