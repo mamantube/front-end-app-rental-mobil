@@ -8,7 +8,7 @@ export default function EmptyProduct() {
     }
     return (
         <div style={divStyle}>
-            <img src="/public/img/product_empty.svg" alt="product_empty.svg" />
+            <img src="/img/product_empty.svg" alt="product_empty.svg" />
         </div>
     )
 }
