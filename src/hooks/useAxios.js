@@ -1,9 +1,10 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function useAxios() {
     const { token } = useSelector((store) => store.user);
+    const dispatch = useDispatch();
 
     const axiosInstance = axios.create({
         baseURL: import.meta.env.VITE_BASE_API_URL,
@@ -33,6 +34,17 @@ export default function useAxios() {
                 if (code === 401) {
                     let {message} = error.response.data;
                     toast.error(message)
+                }
+
+                if (code === 403) {
+                    let {message} = error.response.data;
+                    toast.error(message)
+
+                    localStorage.removeItem("token")
+
+                    dispatch({ type: "SET_TOKEN", value: null})
+
+                    window.location.href = "/admin/login"
                 }
 
                 return Promise.reject(error)

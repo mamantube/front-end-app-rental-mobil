@@ -83,7 +83,7 @@ export default function DataMobil () {
         // .catch((error) => {
         //     let messageError = error.response.data.message;
         //     // let { message } = errors[0];
-        //     console.error("ERROR", messageError)
+        //     console.error("ERROR", error.response.data)
         //     toast.error(messageError)
         // })
         .finally(() => {
