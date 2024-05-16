@@ -27,18 +27,25 @@ export default function DataMobil () {
             q: "",
             sort_by: "",
             page: 1,
-            per_page: 1,
+            per_page: 20,
         }
     );
 
     const onChangeParams = (event) => {
         let { name, value} = event.target
-        setParams({...params, [name]: value, page: 1})
+        setParams({...params, [name]: value,})
+
+        if (value.length === 0) setLoad(true)
     }
 
-    const onSearch = () => {
-        searchProduct();
-        console.log("THIS", params)
+    // const onSearch = () => {
+    //     searchProduct();
+    //     console.log("THIS", params)
+    // }
+
+    function onSearchProduct() {
+        setParams({...params, page: 1});
+        setLoad(true)
     }
 
     const [totalPage, setTotalPage] = useState(0)
@@ -100,7 +107,7 @@ export default function DataMobil () {
         <section id="list--data--mobil" className=" min-vh-100">
             <NavBreadcrumb navList={navList} />
 
-            <DataMobilFilter q={params.q} sort_by={params.sort_by} onChangeValue={onChangeParams} onClickSearch={onSearch} onCreateNew={() => navigateTo("/admin/data-mobil/buat-baru")} />
+            <DataMobilFilter q={params.q} sort_by={params.sort_by} onChangeValue={onChangeParams} onClickSearch={onSearchProduct} onCreateNew={() => navigateTo("/admin/data-mobil/buat-baru")} />
 
             <ListProduct dataProduct={products} />
 
