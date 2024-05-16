@@ -81,17 +81,18 @@ export default function DataMobil () {
         // })
         .finally(() => {
             hideLoading();
+            setLoad(false)
         })
     }
 
     useEffect(() => {
         if (load) searchProduct()
 
-        return () => {
-            setLoad(false)
-            setProducts([])
+        // return () => {
+        //     setLoad(false)
+        //     setProducts([])
 
-        }
+        // }
     }, [load])
 
 
