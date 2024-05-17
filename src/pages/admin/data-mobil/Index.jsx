@@ -11,7 +11,7 @@ import PaginationButton from "../../../components/PaginationButton";
 
 let navList = [
     {
-        to:"/",
+        to:"/admin/data-mobil",
         title: "Data Mobil",
         isActive: true,
     },

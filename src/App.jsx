@@ -3,6 +3,7 @@ import LayoutDashboard from "./layouts/Dashboard";
 import LayoutLanding from "./layouts/Landing";
 import Home from "./pages/Home";
 import DataMobil from "./pages/admin/data-mobil/Index";
+import BuatBaru from "./pages/admin/data-mobil/BuatBaru";
 import DataPengguna from "./pages/admin/data-pengguna";
 import DataTransaksi from "./pages/admin/data-transaksi";
 import Adminlogin from "./pages/admin/Login";
@@ -13,10 +14,15 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route Component={LayoutDashboard}>
-          <Route index path="/admin/data-mobil" Component={DataMobil} />
-          <Route index path="/admin/data-pengguna" Component={DataPengguna} />
-          <Route index path="/admin/data-transaksi" Component={DataTransaksi} />
+
+        <Route path="admin" Component={LayoutDashboard}>
+          <Route path="data-mobil">
+            <Route index Component={DataMobil} />
+            <Route path="buat-baru" Component={BuatBaru} />
+          </Route>
+
+          <Route path="data-pengguna" Component={DataPengguna} />
+          <Route path="data-transaksi" Component={DataTransaksi} />
         </Route>
 
         <Route Component={LayoutLanding}>
