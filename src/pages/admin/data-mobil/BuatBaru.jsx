@@ -1,9 +1,10 @@
 import NavBreadcrumb from "../../../components/NavBreadcrumb";
+import ProdukForm from "../../../components/admin/data-mobil/ProdukFrom";
 
 
 let navList = [
     {
-        to:"/",
+        to:"/admin/data-mobil",
         title: "Data Mobil",
         isActive: false,
     },
@@ -18,6 +19,8 @@ export default function BuatBaru () {
     return (
         <section id="buat--baru">
             <NavBreadcrumb navList={navList} />
+
+            <ProdukForm />
         </section>
     )
 } 
