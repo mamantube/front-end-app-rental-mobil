@@ -2,10 +2,10 @@
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function ProdukForm(props) {
-  const { onSubmitForm } = props
+  const { onSubmitForm } = props;
   const schemaValidation = Yup.object({
     name: Yup.string()
       .required("Nama mobil tidak boleh kosong")
@@ -27,50 +27,52 @@ export default function ProdukForm(props) {
     price: 0,
     description: "",
     image: null,
-  };  
+  };
+
+  const [srcImage, setSrcImage] = useState(null)
 
   const handleChangeFile = (event) => {
     console.log("INI", event.target.files[0]);
 
-    Formik.values.image = event.target.files[0];
+    let file = event.target.files[0]
+    Formik.values.image = file;
+    setSrcImage(URL.createObjectURL(file))
     Formik.setFieldTouched("image", true);
   };
 
   const refInputFile = useRef();
 
   const onResetForm = () => {
-    refInputFile.current.value = null
+    refInputFile.current.value = null;
+
+    setSrcImage(null)
     Formik.resetForm({
       values: initialForm,
       touched: {},
     });
   };
 
-  
-
- 
-
- 
-
-  
-
   const Formik = useFormik({
     initialValues: initialForm,
     validationSchema: schemaValidation,
-    onSubmit: (values) =>  onSubmitForm(values),
+    onSubmit: (values) => onSubmitForm(values),
   });
 
-  
-  
-  
+  const styleImg = {
+    height: "306px",
+    width: "100%",
+    objectFit: "contain",
+    opjectPosition: "center",
+    border: "1px solid #ccc"
+  }
 
   return (
     <Row>
       <Col md="3" sm="12">
         <img
-          src="/img/placeholder.png"
+          src={srcImage ? srcImage : "/img/placeholder.png"}
           alt="product image"
-          className=" w-100"
+          style={styleImg}
         />
       </Col>
       <Col md="9" sm="12" className="p-16">
@@ -147,15 +149,13 @@ export default function ProdukForm(props) {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Button
-            type="button"
-            className=" rounded-0"
-            onClick={onResetForm}
-          >
+          <Button type="button" className=" rounded-0" onClick={onResetForm}>
             Reset
           </Button>
-          
-          <Button type="submit" variant="success" className=" rounded-0 mx-2">Buat data baru</Button>
+
+          <Button type="submit" variant="success" className=" rounded-0 mx-2">
+            Buat data baru
+          </Button>
         </Form>
       </Col>
     </Row>
