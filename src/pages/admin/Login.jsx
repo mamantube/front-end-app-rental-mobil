@@ -37,14 +37,18 @@ export default function Adminlogin() {
     axios
       .post("api/v1/user/login", values)
       .then((response) => {
-        let { token } = response.data.data;
-
-        localStorage.setItem("token", token);
-
-        dispatch({ type: "SET_TOKEN", value: token });
-        // console.log("INI", response.data.data)
+          let { token } = response.data.data;
+          
+          localStorage.setItem("token", token);
+          
+          dispatch({ type: "SET_TOKEN", value: token });
+          // console.log("INI", response.data.data)
+          toast.success("Login Berhasil");
         navigateTo("/admin/data-mobil");
-        toast.success("Login Berhasil");
+      })
+      .catch((error) => {
+        let {message} = error.response.data;
+        toast.error(message)
       })
       .finally(() => {
         hideLoading();
