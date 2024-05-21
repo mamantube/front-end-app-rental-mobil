@@ -14,7 +14,7 @@ export default function ListProduct({dataProduct = []}) {
     }
     return (
         <div style={divStyle}>
-            <Row>
+            <Row className=" g-3">
                 {dataProduct.map((product, index) => (
                     <Col key={`card-product-${index + 1}`} lg="3" >
                         <CardProduct product={product} onClickBtnCard={() => onEditProduct(product)}/>      
