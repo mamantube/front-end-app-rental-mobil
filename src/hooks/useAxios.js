@@ -31,10 +31,10 @@ export default function useAxios() {
                 //     toast.error(message)
                 // }
 
-                // if (code === 401) {
-                //     let {message} = error.response.data;
-                //     toast.error(message)
-                // }
+                if (code === 401) {
+                    let {message} = error.response.data;
+                    toast.error(message)
+                }
 
                 if (code === 403) {
                     let {message} = error.response.data;
@@ -45,17 +45,9 @@ export default function useAxios() {
                     dispatch({ type: "SET_TOKEN", value: null})
 
                     window.location.href = "/admin/login"
-                } else if ( code >= 400 && code < 500) {
-                    let { message, data} = error.response.data;
-
-                    if (data) {
-                        for( let resError of data.errors) {
-                            toast.error(resError.message)
-                        }
-                        return
-                    }
-                    toast.error(message)
                 }
+
+               
 
                 return Promise.reject(error)
             }

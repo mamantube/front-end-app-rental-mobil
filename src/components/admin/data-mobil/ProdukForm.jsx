@@ -1,12 +1,11 @@
+/* eslint-disable react/prop-types */
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import useAxios from "../../../hooks/useAxios";
-import useLoading from "../../../hooks/useLoading";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 
-export default function ProdukForm() {
+export default function ProdukForm(props) {
+  const { onSubmitForm } = props
   const schemaValidation = Yup.object({
     name: Yup.string()
       .required("Nama mobil tidak boleh kosong")
@@ -28,9 +27,7 @@ export default function ProdukForm() {
     price: 0,
     description: "",
     image: null,
-  };
-
-  
+  };  
 
   const handleChangeFile = (event) => {
     console.log("INI", event.target.files[0]);
@@ -49,37 +46,21 @@ export default function ProdukForm() {
     });
   };
 
-  const { showLoading, hideLoading } = useLoading();
+  
 
-  const navigateTo = useNavigate();
+ 
 
-  const axios = useAxios();
+ 
 
-  const onSubmitForm = (values) => {
-    const formData = new FormData();
-    for (const key in values) {
-      formData.append(key, values[key]);
-    }
-
-    showLoading();
-
-    axios
-      .post("/api/v1/product/new", formData)
-      .then((response) => {
-        console.log("RES", response);
-
-        // navigateTo("/admin/data-mobil");
-      })
-      .finally(() => {
-        hideLoading();
-      });
-  };
+  
 
   const Formik = useFormik({
     initialValues: initialForm,
     validationSchema: schemaValidation,
-    onSubmit: onSubmitForm,
+    onSubmit: (values) =>  onSubmitForm(values),
   });
+
+  
   
   
 
@@ -168,19 +149,13 @@ export default function ProdukForm() {
 
           <Button
             type="button"
-            className=" rounded-0 me-2"
+            className=" rounded-0"
             onClick={onResetForm}
           >
             Reset
           </Button>
-          <Button
-            type="submit"
-            variant="success"
-            className=" rounded-0"
-            onClick={onSubmitForm}
-          >
-            Submit
-          </Button>
+          
+          <Button type="submit" variant="success" className=" rounded-0 mx-2">Buat data baru</Button>
         </Form>
       </Col>
     </Row>
