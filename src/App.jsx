@@ -8,6 +8,7 @@ import DataPengguna from "./pages/admin/data-pengguna";
 import DataTransaksi from "./pages/admin/data-transaksi";
 import Adminlogin from "./pages/admin/Login";
 import LayoutDefault from "./layouts/Default";
+import EditDataMobil from "./pages/admin/data-mobil/EditDataMobil";
 
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="data-mobil">
             <Route index Component={DataMobil} />
             <Route path="buat-baru" Component={BuatBaru} />
+            <Route path="edit/:product_id" Component={EditDataMobil} />
           </Route>
 
           <Route path="data-pengguna" Component={DataPengguna} />

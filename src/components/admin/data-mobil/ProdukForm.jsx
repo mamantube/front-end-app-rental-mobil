@@ -1,11 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function ProdukForm(props) {
-  const { onSubmitForm } = props;
+  const {
+    isEdit = false,
+    dataProduct = null,
+    onSubmitForm = () => {},
+    children,
+  } = props;
   const schemaValidation = Yup.object({
     name: Yup.string()
       .required("Nama mobil tidak boleh kosong")
@@ -19,7 +25,7 @@ export default function ProdukForm(props) {
       .min(20, "Masukkan minimal 20 karakter")
       .max(250, "Maksimal hanya 250 karakter")
       .trim(),
-    image: Yup.mixed().required("Foto tidak boleh kosong"),
+    image: isEdit ? null : Yup.mixed().required("Foto tidak boleh kosong"),
   });
 
   const initialForm = {
@@ -29,14 +35,14 @@ export default function ProdukForm(props) {
     image: null,
   };
 
-  const [srcImage, setSrcImage] = useState(null)
+  const [srcImage, setSrcImage] = useState(null);
 
   const handleChangeFile = (event) => {
     console.log("INI", event.target.files[0]);
 
-    let file = event.target.files[0]
+    let file = event.target.files[0];
     Formik.values.image = file;
-    setSrcImage(URL.createObjectURL(file))
+    setSrcImage(URL.createObjectURL(file));
     Formik.setFieldTouched("image", true);
   };
 
@@ -45,11 +51,15 @@ export default function ProdukForm(props) {
   const onResetForm = () => {
     refInputFile.current.value = null;
 
-    setSrcImage(null)
+    let urlImage = isEdit && dataProduct ? dataProduct.storage_detail.secure_url : null;
+
+    setSrcImage(urlImage);
+
     Formik.resetForm({
       values: initialForm,
       touched: {},
     });
+    if (urlImage) window.location.reload()
   };
 
   const Formik = useFormik({
@@ -63,17 +73,33 @@ export default function ProdukForm(props) {
     width: "100%",
     objectFit: "contain",
     opjectPosition: "center",
-    border: "1px solid #ccc"
-  }
+    border: "1px solid #ccc",
+  };
+
+  const disableSubmitBtn =
+    isEdit && dataProduct ? dataProduct.deleted_at : false;
+  const labelBtn = isEdit ? "Perbaharui data" : "Buat data baru";
+
+  useEffect(() => {
+    if (isEdit && dataProduct) {
+      Formik.values.name = dataProduct.name;
+      Formik.values.price = dataProduct.price;
+      Formik.values.description = dataProduct.description;
+
+      setSrcImage(dataProduct.storage_detail.secure_url || null);
+    }
+  }, [isEdit, dataProduct]);
 
   return (
     <Row>
       <Col md="3" sm="12">
+        {/* {JSON.stringify(isEdit)} */}
         <img
           src={srcImage ? srcImage : "/img/placeholder.png"}
           alt="product image"
           style={styleImg}
         />
+        {/* {JSON.stringify(dataProduct)} */}
       </Col>
       <Col md="9" sm="12" className="p-16">
         <Form onSubmit={Formik.handleSubmit}>
@@ -153,9 +179,18 @@ export default function ProdukForm(props) {
             Reset
           </Button>
 
-          <Button type="submit" variant="success" className=" rounded-0 mx-2">
-            Buat data baru
+          {children}
+
+          <Button
+            disabled={disableSubmitBtn}
+            type="submit"
+            variant="success"
+            className=" rounded-0 mx-2"
+          >
+            {labelBtn}
           </Button>
+
+          {JSON.stringify(dataProduct)}
         </Form>
       </Col>
     </Row>
