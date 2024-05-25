@@ -190,7 +190,7 @@ export default function ProdukForm(props) {
             {labelBtn}
           </Button>
 
-          {JSON.stringify(dataProduct)}
+          {/* {JSON.stringify(dataProduct)} */}
         </Form>
       </Col>
     </Row>

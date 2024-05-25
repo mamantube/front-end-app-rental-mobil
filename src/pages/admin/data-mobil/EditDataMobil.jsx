@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
 import useLoading from "../../../hooks/useLoading";
 import ProdukForm from "../../../components/admin/data-mobil/ProdukForm";
@@ -33,17 +33,20 @@ export default function EditDataMobil() {
 
   const axios = useAxios();
 
+  const navigateTo = useNavigate()
+
   function handleRemoveProduct() {
     showLoading();
 
     axios
       .delete(`/api/v1/product/remove/${product_id}`)
       .then((response) => {
-        console.log("RES", response.data);
+        toast.success(response.data.message)
         window.location.reload()
       })
       .catch((error) => {
-        console.log("ERR", error.response.data);
+        let { message } = error.response.data;
+        toast.error(message)
       })
       .finally(() => {
         hideLoading();
@@ -57,11 +60,12 @@ export default function EditDataMobil() {
     axios
       .patch(`/api/v1/product/restore/${product_id}`)
       .then((response) => {
-        console.log("RES", response.data);
+        toast.success(response.data.message)
         window.location.reload()
       })
       .catch((error) => {
-        console.log("ERR", error.response.data);
+        let { message } = error.response.data;
+        toast.error(message)
       })
       .finally(() => {
         hideLoading();
@@ -69,30 +73,38 @@ export default function EditDataMobil() {
   }
 
   function handleUpdateForm(values) {
-    toast.error("tets")
-    console.log(values)
-    // showLoading()
-    // console.log("up", values)
+      const formData = new FormData()
+      
+      for (const key in values) {
+          if (values[key] != null)
+            formData.append(key, values[key])
+    }
 
-    // axios.put(`/api/v1/product/${product_id}`)
-    // .then((response) => {
-    //     console.log("RES", response)
-    // })
-    // .catch((error) => {
-    //     let { message, data } = error.response.data;
+    showLoading()
 
-    //     if(data) {
-    //         for (let resError of data.errors) {
-    //             toast.error(resError.message)
-    //             console.log("error", resError.message)
-    //         }
-    //         return
-    //     }
-    //     toast.error(message)
-    // })
-    // .finally(() => {
-    //     hideLoading()
-    // })
+    axios.put(`/api/v1/product/${product_id}`, formData)
+    .then((response) => {
+        // console.log("RES", response)
+
+        toast.success(response.data.message)
+
+        navigateTo("/admin/data-mobil")
+    })
+    .catch((error) => {
+        let { message, data } = error.response.data;
+
+        if(data) {
+            for (let resError of data.errors) {
+                toast.error(resError.message)
+                console.log("error", resError.message)
+            }
+            return
+        }
+        toast.error(message)
+    })
+    .finally(() => {
+        hideLoading()
+    })
   }
 
   function getDetailProduct() {
@@ -105,7 +117,8 @@ export default function EditDataMobil() {
         setData(response.data.data);
       })
       .catch((error) => {
-        console.log("error", error.response);
+        let { message } = error.response.data;
+        toast.error(message)
       })
       .finally(() => {
         hideLoading();
