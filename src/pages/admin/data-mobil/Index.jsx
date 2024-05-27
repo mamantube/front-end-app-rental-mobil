@@ -38,11 +38,6 @@ export default function DataMobil () {
         if (value.length === 0) setLoad(true)
     }
 
-    // const onSearch = () => {
-    //     searchProduct();
-    //     console.log("THIS", params)
-    // }
-
     function onSearchProduct() {
         setParams({...params, page: 1});
         setLoad(true)

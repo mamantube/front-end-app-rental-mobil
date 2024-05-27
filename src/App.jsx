@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import LayoutDashboard from "./layouts/Dashboard";
 import LayoutLanding from "./layouts/Landing";
-import Home from "./pages/Home";
+import Beranda from "./pages/Beranda";
 import DataMobil from "./pages/admin/data-mobil/Index";
 import BuatBaru from "./pages/admin/data-mobil/BuatBaru";
 import DataPengguna from "./pages/admin/data-pengguna";
@@ -28,7 +28,7 @@ export default function App() {
         </Route>
 
         <Route Component={LayoutLanding}>
-          <Route index path="/" Component={Home} />
+          <Route index path="/" Component={Beranda} />
         </Route>
 
         <Route Component={LayoutDefault}>

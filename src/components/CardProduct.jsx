@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Card, Button } from "react-bootstrap";
 import { formatIDR } from "../utils/formater";
+import { useLocation } from "react-router-dom";
 
 export default function CardProduct(props) {
   const {
@@ -15,6 +16,11 @@ export default function CardProduct(props) {
     objectPosition: "center",
     opacity: product.deleted_at ? "0.4" : "1"
   };
+
+  const location = useLocation()
+
+  const customerCardBtn = location.pathname === "/" || location.pathname.includes("/customer")
+  const finalButtonText = customerCardBtn ? "Sewa Mobil" : buttonText
 
   let element
 
@@ -50,7 +56,7 @@ export default function CardProduct(props) {
           className=" rounded-0 w-50"
           onClick={onClickBtnCard}
         >
-          {buttonText}
+          {finalButtonText}
         </Button>
       </Card.Body>
     </Card>
