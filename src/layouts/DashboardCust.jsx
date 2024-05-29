@@ -2,7 +2,7 @@ import { Outlet, NavLink, useNavigate, Navigate } from "react-router-dom";
 import useLoading from "../hooks/useLoading";
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
-import { Navbar, Nav, Button, Container } from "react-bootstrap";
+import { Navbar, Nav, Button, Container,} from "react-bootstrap";
 import { useState } from "react";
 import { useSelector, useDispatch} from "react-redux"
 
@@ -34,12 +34,15 @@ export default function DashboardCust() {
   if (isLoading) componentLoading = <Loading />;
 
   const token = localStorage.getItem("token" || null)
+  const role = localStorage.getItem("role" || null)
 
   if (!token) {
     localStorage.removeItem("role");
 
     return <Navigate to="/" replace />;
   }
+
+  if (token && role !== "customer") return <Navigate to="/forbidden" replace />
 
   return (
     <>
@@ -69,7 +72,7 @@ export default function DashboardCust() {
           <Navbar.Collapse id="navbar--dashboard" className={cssShowMenu}>
             <Nav className="me-auto">
               <NavLink
-                to="/admin/data-mobil"
+                to="/customer"
                 className=" ms-md-2 inactive"
                 activeclassname="active"
               >
@@ -77,7 +80,7 @@ export default function DashboardCust() {
               </NavLink>
 
               <NavLink
-                to="/admin/data-transaksi"
+                to="/customer/data-mobil"
                 className="mx-md-4 my-md-0 my-2 inactive"
                 activeclassname="active"
               >
@@ -85,7 +88,7 @@ export default function DashboardCust() {
               </NavLink>
 
               <NavLink
-                to="/admin/data-pengguna"
+                to="/customer/data-transaksi"
                 className="my-md-0 me-4 my-2 inactive"
                 activeclassname="active"
               >
@@ -93,7 +96,7 @@ export default function DashboardCust() {
               </NavLink>
 
               <NavLink
-                to="/admin/data-pengguna"
+                to="/customer/profile"
                 className=" my-md-0 my-2 inactive"
                 activeclassname="active"
               >
@@ -111,7 +114,7 @@ export default function DashboardCust() {
         </Container>
       </Navbar>
 
-      <Container className=" mt-5">
+      <Container className=" my-5">
         <Outlet key="beranda--customer" />
       </Container>
 
