@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import EmptyProduct from "../EmptyProduct";
@@ -5,9 +6,14 @@ import CardProduct from "../CardProduct";
 
 export default function ListProductCust({ dataProduct = [] }) {
   const navigateTo = useNavigate();
+  const token = localStorage.getItem("token") 
 
-  function goLogin() {
-    navigateTo("/customer/login")
+  function productbtnCard() {
+    if (token) {
+      navigateTo("/daftar-sewa")
+    } else {
+      navigateTo("/login")
+    } 
   }
 
   if (!dataProduct.length) return <EmptyProduct />;
@@ -18,7 +24,7 @@ export default function ListProductCust({ dataProduct = [] }) {
           <Col key={`card-product-${index + 1}`} lg="3">
             <CardProduct
               product={detailProduct}
-              onClickBtnCard={goLogin}
+              onClickBtnCard={productbtnCard}
             />
           </Col>
         ))}
