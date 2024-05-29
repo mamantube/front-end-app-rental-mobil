@@ -22,10 +22,12 @@ export default function LayoutDashboard() {
 
   function onLogout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("role")
 
     dispatch({ type: "SET_TOKEN", value: null });
+    dispatch({ type: "SET_ROLE", value: null });
 
-    navigateTo("/admin/login");
+    navigateTo("/");
   }
 
   const { isLoading } = useLoading();
@@ -34,7 +36,13 @@ export default function LayoutDashboard() {
   if (isLoading) componentLoading = <Loading />;
 
   const { token } = useSelector((store) => store.user);
-  if (!token) return <Navigate to="/admin/login" replace />;
+
+  if (!token) {
+    localStorage.removeItem("role");
+
+    return <Navigate to="/" replace />;
+  }
+  
 
   return (
     <>

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 
-export default function Adminlogin() {
+export default function Login() {
   const schema = Yup.object({
     email: Yup.string()
       .required("Email harus diisi")
@@ -32,23 +32,29 @@ export default function Adminlogin() {
   const navigateTo = useNavigate();
   const axios = useAxios();
 
+  function toRegist() {
+    navigateTo("/register")
+  }
+
   function onSubmitForm(values) {
     showLoading();
     axios
       .post("api/v1/user/login", values)
       .then((response) => {
-          let { token } = response.data.data;
-          
-          localStorage.setItem("token", token);
-          
-          dispatch({ type: "SET_TOKEN", value: token });
-          // console.log("INI", response.data.data)
-          toast.success("Login Berhasil");
-        navigateTo("/admin/data-mobil");
+        let { token, role_user } = response.data.data;
+
+        localStorage.setItem("role", role_user);
+        localStorage.setItem("token", token);
+
+        dispatch({ type: "SET_TOKEN", value: token });
+        dispatch({ type: "SET_ROLE", value: role_user });
+        console.log("INI", response.data.data);
+        toast.success("Login Berhasil");
+        navigateTo(role_user === "admin" ? "/admin" : "customer");
       })
       .catch((error) => {
-        let {message} = error.response.data;
-        toast.error(message)
+        let { message } = error.response.data;
+        toast.error(message);
       })
       .finally(() => {
         hideLoading();
@@ -62,7 +68,11 @@ export default function Adminlogin() {
   });
 
   const { token } = useSelector((store) => store.user);
-  if (token) return <Navigate to="/admin/data-mobil" replace />;
+  const { role } = useSelector((store) => store.user);
+  if (token && role === "admin")
+    return <Navigate to="/admin/data-mobil" replace />;
+  if (token && role === "customer")
+    return <Navigate to="/customer/beranda" replace />;
 
   return (
     <main
@@ -71,7 +81,7 @@ export default function Adminlogin() {
     >
       <FormAuth
         title="Masuk ke Dashboard"
-        subTitle="Masukkan Email dan Password Admin"
+        subTitle="Masukkan Email dan Password"
       >
         <Form onSubmit={Formik.handleSubmit}>
           <Form.Group className="mb-3">
@@ -105,6 +115,12 @@ export default function Adminlogin() {
           <Button variant="dark" type="submit" className=" w-100">
             Masuk
           </Button>
+          <span className=" d-flex">
+            <p className=" mt-3">Belum mempunyai akun? Silahkan daftar </p>
+            <Button variant="link" size="sm" onClick={toRegist}>
+              Di sini
+            </Button>
+          </span>
         </Form>
       </FormAuth>
     </main>
