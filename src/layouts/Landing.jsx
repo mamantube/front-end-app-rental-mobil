@@ -1,14 +1,11 @@
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import useAxios from "../hooks/useAxios";
 import useLoading from "../hooks/useLoading";
 import { Navbar, Button, Nav, Container } from "react-bootstrap";
 import Footer from "../components/Footer";
 import Loading from "../components/Loading";
+import { useState } from "react";
 
 export default function LayoutLanding() {
-  const axios = useAxios();
-  const { showLoading, hideLoading } = useLoading();
   const [show, setSHow] = useState(false);
   const navigateTo = useNavigate();
 
@@ -19,39 +16,18 @@ export default function LayoutLanding() {
   }
 
   function onToRegister() {
-    navigateTo("/customer/register");
+    navigateTo("/register");
   }
 
   function onToLogin() {
-    navigateTo("customer/login");
+    navigateTo("/login");
   }
 
   const { isLoading } = useLoading();
 
   let componentLoading;
   if (isLoading) componentLoading = <Loading />;
-
-  useEffect(() => {
-    showLoading();
-
-    const startDate = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
-    const endDate = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
-
-    axios
-      .get(
-        `/api/v1/customer/product?start_date=${startDate}&end_date=${endDate}`
-      )
-      .then((response) => {
-        console.log("res", response.data.data);
-      })
-      .catch((error) => {
-        console.log("error", error.response.data);
-      })
-      .finally(() => {
-        hideLoading();
-      });
-  }, []);
-
+ 
   return (
     <>
       {componentLoading}
