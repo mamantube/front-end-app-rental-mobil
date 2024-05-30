@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 export default function CardProduct(props) {
   const {
     product = {},
-    buttonText = "Edit",
+    buttonText = "Sewa mobil",
     onClickBtnCard = () => {},
   } = props;
 
@@ -19,8 +19,8 @@ export default function CardProduct(props) {
 
   const location = useLocation()
 
-  const customerCardBtn = location.pathname === "/" || location.pathname.includes("/customer")
-  const finalButtonText = customerCardBtn ? "Sewa Mobil" : buttonText
+  const customerCardBtn = location.pathname.includes("/admin")
+  const finalButtonText = customerCardBtn ? "Edit" : buttonText
 
   let element
 
