@@ -14,6 +14,8 @@ import DashboardCust from "./layouts/DashboardCust";
 import BerandaIdx from "./pages/customer";
 import DaftarSewa from "./pages/customer/DaftarSewa";
 import ForbiddenAccess from "./pages/ForbiddenAcces";
+import RentalMobil from "./pages/RentalMobil";
+import RentalCust from "./pages/customer/RentalCust";
 
 
 export default function App() {
@@ -33,14 +35,13 @@ export default function App() {
         </Route>
  
         <Route path="customer" Component={DashboardCust}>
-          <Route path="beranda">
-            <Route index Component={BerandaIdx} />
-          </Route>
-          
-            <Route path="data-transaksi" Component={DaftarSewa} />
+          <Route path="beranda" Component={BerandaIdx} />
+          <Route path="rental-customer" Component={RentalCust} />
+          <Route path="data-transaksi" Component={DaftarSewa} />
         </Route>
         <Route Component={LayoutLanding}>
           <Route index path="/" Component={Beranda} />
+          <Route path="data-mobil" Component={RentalMobil} />
         </Route>
 
         <Route Component={LayoutDefault}>
