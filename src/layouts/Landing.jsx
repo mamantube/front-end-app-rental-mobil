@@ -63,7 +63,7 @@ export default function LayoutLanding() {
               </NavLink>
 
               <NavLink
-                to="/landing/rental-mobil"
+                to="/data-mobil"
                 className="mx-md-4 my-md-0 my-2 inactive"
                 activeclassname="active"
               >
@@ -93,13 +93,6 @@ export default function LayoutLanding() {
       <Container className=" mt-5">
         <Outlet key="layout-landing" />
       </Container>
-
-      <img
-        src="/img/Butuh Bantuan.png"
-        alt="contact us"
-        className=" d-block mt-5"
-        style={{ height: "550px", width: "100%" }}
-      />
 
       <Footer />
     </>
