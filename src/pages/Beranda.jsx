@@ -1,8 +1,9 @@
-import { Carousel, Row, Col } from "react-bootstrap";
+import { Carousel, Row, Col, Button } from "react-bootstrap";
 import ListProductCust from "../components/customer/ListProductCust";
 import useAxios from "../hooks/useAxios";
 import useLoading from "../hooks/useLoading";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Beranda() {
   const captionCustom = {
@@ -18,6 +19,11 @@ export default function Beranda() {
   const { showLoading, hideLoading} = useLoading()
   const axios = useAxios();
   const [ products, setProducts] = useState([])
+  const navigateTo = useNavigate()
+
+  function seeMore() {
+    navigateTo("/data-mobil")
+  }
 
   useEffect(() => {
     showLoading();
@@ -94,11 +100,18 @@ export default function Beranda() {
 
       <ListProductCust dataProduct={products} />
 
-      {/* <Row className=" mt-5">
-        <Col>
-            <img src="/img/Butuh Bantuan.png" alt="contact us" className=" d-block w-100"/>
-        </Col>
-      </Row> */}
+      <div className=" text-center">
+        <Button className=" rounded-0" variant="outline-dark" onClick={seeMore}>Tampilkan lebih banyak</Button>
+      </div>
+
+      <img
+        src="/img/Butuh Bantuan.png"
+        alt="contact us"
+        className=" d-block mt-5"
+        style={{ height: "550px", width: "100%" }}
+      />
+
+      
     </>
   );
 }
