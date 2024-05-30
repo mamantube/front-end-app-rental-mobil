@@ -33,8 +33,7 @@ export default function DashboardCust() {
   let componentLoading;
   if (isLoading) componentLoading = <Loading />;
 
-  const token = localStorage.getItem("token" || null)
-  const role = localStorage.getItem("role" || null)
+  const { token, role } = useSelector((store) => store.user);
 
   if (!token) {
     localStorage.removeItem("role");
@@ -80,7 +79,7 @@ export default function DashboardCust() {
               </NavLink>
 
               <NavLink
-                to="/customer/data-mobil"
+                to="/customer/rental-customer"
                 className="mx-md-4 my-md-0 my-2 inactive"
                 activeclassname="active"
               >
