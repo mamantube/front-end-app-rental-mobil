@@ -6,11 +6,11 @@ import CardProduct from "../CardProduct";
 
 export default function ListProductCust({ dataProduct = [] }) {
   const navigateTo = useNavigate();
-  const token = localStorage.getItem("token") 
+  const token = localStorage.getItem("token")
 
   function productbtnCard() {
     if (token) {
-      navigateTo("/daftar-sewa")
+      navigateTo("/daftar-transaksi")
     } else {
       navigateTo("/login")
     } 
@@ -19,7 +19,7 @@ export default function ListProductCust({ dataProduct = [] }) {
   if (!dataProduct.length) return <EmptyProduct />;
   return (
     <div>
-      <Row className=" g-3">
+      <Row className=" g-3 my-5">
         {dataProduct.map((detailProduct, index) => (
           <Col key={`card-product-${index + 1}`} lg="3">
             <CardProduct
