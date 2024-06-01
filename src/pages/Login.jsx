@@ -1,12 +1,12 @@
-import FormAuth from "../../components/FormAuth";
+import FormAuth from "../components/FormAuth";
 import { Button, Form } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import useLoading from "../../hooks/useLoading";
+import useLoading from "../hooks/useLoading";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../hooks/useAxios";
 
 export default function Login() {
   const schema = Yup.object({

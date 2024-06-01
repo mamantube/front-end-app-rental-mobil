@@ -6,16 +6,16 @@ import DataMobil from "./pages/admin/data-mobil/Index";
 import BuatBaru from "./pages/admin/data-mobil/BuatBaru";
 import DataPengguna from "./pages/admin/data-pengguna";
 import DataTransaksi from "./pages/admin/data-transaksi";
-import Login from "./pages/admin/Login";
+import Login from "./pages/Login";
 import LayoutDefault from "./layouts/Default";
 import EditDataMobil from "./pages/admin/data-mobil/EditDataMobil";
 import Register from "./pages/customer/Register";
 import DashboardCust from "./layouts/DashboardCust";
-import BerandaIdx from "./pages/customer";
-import DaftarSewa from "./pages/customer/DaftarSewa";
+import BerandaIdx from "./pages/customer/beranda/index";
+import DaftarSewa from "./pages/customer/daftar-sewa/DaftarSewa";
 import ForbiddenAccess from "./pages/ForbiddenAcces";
 import RentalMobil from "./pages/RentalMobil";
-import RentalCust from "./pages/customer/RentalCust";
+import RentalCust from "./pages/customer/rental-mobil/RentalCust";
 
 
 export default function App() {

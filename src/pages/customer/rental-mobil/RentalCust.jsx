@@ -1,4 +1,4 @@
-import RentalMobil from "../RentalMobil";
+import RentalMobil from "../../RentalMobil";
 
 export default function RentalCust() {
     return (
