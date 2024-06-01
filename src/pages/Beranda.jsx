@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Carousel, Row, Col, Button } from "react-bootstrap";
 import ListProductCust from "../components/customer/ListProductCust";
 import useAxios from "../hooks/useAxios";
 import useLoading from "../hooks/useLoading";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import moment from "moment";
 
 export default function Beranda() {
   const captionCustom = {
@@ -20,15 +23,29 @@ export default function Beranda() {
   const axios = useAxios();
   const [ products, setProducts] = useState([])
   const navigateTo = useNavigate()
+  const { token, role } = useSelector((store) => store.user);
 
   function seeMore() {
-    navigateTo("/data-mobil")
+    if (token && role == "customer") {
+      navigateTo("/customer/rental-customer")
+    } else {
+      navigateTo("/data-mobil")
+    }
+  }
+
+  const params = {
+    q: "",
+    page: 1,
+    per_page: 5,
+    start_date: moment().format("YYYY-MM-DD"),
+    end_date: moment().format("YYYY-MM-DD"),
   }
 
   useEffect(() => {
     showLoading();
+    // /api/v1/customer/product?q=&page=1&per_page=2"
     axios
-      .get("/api/v1/customer/product"
+      .get("/api/v1/customer/product", {params: { ...params}}
       )
       .then((response) => {
         console.log("res", response.data.data);
