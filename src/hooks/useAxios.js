@@ -37,13 +37,13 @@ export default function useAxios() {
                     let {message} = error.response.data;
                     toast.error(message)
 
-                    localStorage.removeItem("token")
+                    localStorage.clear()
 
                     dispatch({ type: "SET_TOKEN", value: null})
+                    dispatch({ type: "SET_ROLE", value: null })
 
-                    window.location.href = "/admin/login"
+                    window.location.href = "/"
                 }
-
                 if (code === 404) {
                     navigateTo("/404")
                 }
