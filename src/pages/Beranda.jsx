@@ -36,7 +36,7 @@ export default function Beranda() {
   const params = {
     q: "",
     page: 1,
-    per_page: 5,
+    per_page: 8,
     start_date: moment().format("YYYY-MM-DD"),
     end_date: moment().format("YYYY-MM-DD"),
   }
