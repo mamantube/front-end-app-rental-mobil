@@ -1,16 +1,9 @@
 /* eslint-disable react/prop-types */
+import moment from "moment";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-
 
 export default function SearchProduct(props) {
-  let { q, onChangeValue, onClickSearch } = props;
-  const location = useLocation()
-  
-
-  
-
-  const disableForm = location.pathname.includes("/data-transaksi") ? false : true
+  let { q, start_date, end_date, onChangeValue, onClickSearch } = props;
 
   return (
     <>
@@ -30,25 +23,34 @@ export default function SearchProduct(props) {
 
             <Col lg="2" md="3" sm="4" className=" mt-3 mt-md-0">
               <Form.Control
-                type="text"
+                type="date"
                 placeholder="Tanggal mulai sewa"
                 className=" rounded-0 bg-light"
-                disabled={disableForm}
-                readOnly
+                name="start_date"
+                value={start_date}
+                onChange={(e) => onChangeValue(e)}
+                min={moment().format("YYYY-MM-DD")}
               />
             </Col>
 
             <Col lg="2" md="3" sm="4" className=" mt-lg-0 mt-3 mt-md-0">
               <Form.Control
-                type="text"
+                type="date"
                 placeholder="Tanggal selesai sewa"
                 className=" rounded-0 bg-light"
-                disabled={disableForm}
+                name="end_date"
+                value={end_date}
+                onChange={(e) => onChangeValue(e)}
+                min={moment().format("YYYY-MM-DD")}
               />
             </Col>
 
             <Col lg="2" md="12" sm="4" className=" mt-md-3 mt-lg-0 mt-3">
-              <Button variant="dark" className=" rounded-0 w-100" onClick={onClickSearch}>
+              <Button
+                variant="dark"
+                className=" rounded-0 w-100"
+                onClick={onClickSearch}
+              >
                 <i className="bi bi-search"></i> Cari mobil
               </Button>
             </Col>
