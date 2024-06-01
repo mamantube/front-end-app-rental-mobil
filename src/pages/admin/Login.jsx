@@ -50,7 +50,7 @@ export default function Login() {
         dispatch({ type: "SET_ROLE", value: role_user });
         console.log("INI", response.data.data);
         toast.success("Login Berhasil");
-        navigateTo(role_user === "admin" ? "/admin" : "customer");
+        navigateTo(role_user === "admin" ? "/admin/data-mobil" : "/customer/beranda");
       })
       .catch((error) => {
         let { message } = error.response.data;
@@ -69,10 +69,12 @@ export default function Login() {
 
   const { token } = useSelector((store) => store.user);
   const { role } = useSelector((store) => store.user);
-  if (token && role === "admin")
-    return <Navigate to="/admin/data-mobil" replace />;
-  if (token && role === "customer")
-    return <Navigate to="/customer/beranda" replace />;
+
+  if (token) {
+    if (role === "admin") return <Navigate to="/admin/data-mobil" replace />;
+
+    else if (role === "customer") return <Navigate to="/customer/beranda" replace />;
+  }
 
   return (
     <main
