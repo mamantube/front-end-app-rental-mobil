@@ -1,6 +1,6 @@
 const initialState = {
     token: localStorage.getItem("token") || null,
-    role: localStorage.getItem("role_user") || null,
+    role: localStorage.getItem("role") || null,
 };
 
 export const reducerUser = ( state = initialState, actions) => {
