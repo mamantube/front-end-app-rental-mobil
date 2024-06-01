@@ -35,13 +35,13 @@ export default function DashboardCust() {
 
   const { token, role } = useSelector((store) => store.user);
 
-  if (!token) {
-    localStorage.removeItem("role");
+  
+  if (!token) return <Navigate to="/" replace />;
 
-    return <Navigate to="/" replace />;
+  if (token && role !== "customer") {
+    console.log("Forbidden", token, role)
+    return <Navigate to="/forbidden" replace />
   }
-
-  if (token && role !== "customer") return <Navigate to="/forbidden" replace />
 
   return (
     <>
@@ -71,7 +71,7 @@ export default function DashboardCust() {
           <Navbar.Collapse id="navbar--dashboard" className={cssShowMenu}>
             <Nav className="me-auto">
               <NavLink
-                to="/customer"
+                to="/customer/beranda"
                 className=" ms-md-2 inactive"
                 activeclassname="active"
               >

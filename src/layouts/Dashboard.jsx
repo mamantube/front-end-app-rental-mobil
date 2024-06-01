@@ -37,11 +37,7 @@ export default function LayoutDashboard() {
 
   const { token, role } = useSelector((store) => store.user);
 
-  if (!token) {
-    localStorage.removeItem("role");
-
-    return <Navigate to="/" replace />;
-  }
+  if (!token) return <Navigate to="/" replace />;
   
   if (token && role !== "admin") return <Navigate to="/forbidden" replace />
 
