@@ -8,51 +8,61 @@ import useLoading from "../../hooks/useLoading";
 import { toast } from "react-toastify";
 
 export default function Register() {
-    const schema = Yup.object({
-        first_name: Yup.string().min(1, "Nama depan tidak boleh kosong").trim(),
-        last_name: Yup.string().trim(),
-        phone: Yup.string().min(1, "Nomor hanphone tidak boleh kosong").matches(/^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/, "Nomor hanphone tidak valid"),
-        email: Yup.string().email("Email tidak valid"),
-        password: Yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/, "Password anda tidak sesuai ketentuan")
+  const schema = Yup.object({
+    first_name: Yup.string().min(1, "Nama depan tidak boleh kosong").trim(),
+    last_name: Yup.string().trim(),
+    phone: Yup.string()
+      .min(1, "Nomor hanphone tidak boleh kosong")
+      .matches(
+        /^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/,
+        "Nomor hanphone tidak valid"
+      ),
+    email: Yup.string().email("Email tidak valid"),
+    password: Yup.string().matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+      "Minimal 6 karakter, satu huruf besar dan satu angka"
+    ),
+  });
 
-    })
+  const initialForm = {
+    first_name: "",
+    last_name: "",
+    phone: "",
+    email: "",
+    password: "",
+  };
 
-    const initialForm = {
-        first_name: "",
-        last_name: "",
-        phone: "",
-        email: "",
-        password: "", 
-    }
+  const axios = useAxios();
+  const navigateTo = useNavigate();
+  const { showLoading, hideLoading } = useLoading();
 
-    const axios = useAxios();
-    const navigateTo = useNavigate();
-    const { showLoading, hideLoading} = useLoading()
+  function toLogin() {
+    navigateTo("/login");
+  }
 
-    function toLogin() {
-        navigateTo("/login")
-    }
+  function onSubmitForm(values) {
+    showLoading();
+    axios
+      .post("/api/v1/user/register", values)
+      .then((response) => {
+        navigateTo("/login");
+        console.log("coba", response.data.data);
+        toast.success("Daftar berhasil, silahkan masuk");
+      })
+      .catch((error) => {
+        let { message } = error.response.data;
+        toast.error(message);
+      })
+      .finally(() => {
+        hideLoading();
+      });
+  }
 
-    function onSubmitForm(values) {
-        showLoading()
-        axios.post("/api/v1/user/register", values).then((response) => {
-            navigateTo("/login")
-            console.log("coba", response.data.data)
-            toast.success("Daftar berhasil, silahkan masuk")
-        }).catch((error) => {
-            let {message} = error.response.data;
-            toast.error(message)
-
-        }).finally(() => {
-            hideLoading()
-        })
-    }
-
-    const Formik = useFormik({
-        initialValues: initialForm,
-        validationSchema: schema,
-        onSubmit: onSubmitForm
-    })
+  const Formik = useFormik({
+    initialValues: initialForm,
+    validationSchema: schema,
+    onSubmit: onSubmitForm,
+  });
   return (
     <main
       id="register--form"
@@ -113,13 +123,20 @@ export default function Register() {
               onChange={Formik.handleChange}
               className=" border-secondary"
             />
+            <Form.Control.Feedback type="invalid">
+              {Formik.errors.password}
+            </Form.Control.Feedback>
           </Form.Group>
 
-          <Button variant="dark" type="submit" className=" w-100">Daftar</Button>
-          
+          <Button variant="dark" type="submit" className=" w-100">
+            Daftar
+          </Button>
+
           <span className=" d-flex">
             <p className=" mt-3">Sudah mempunyai akun? Silahkan masuk </p>
-            <Button variant="link" size="sm" onClick={toLogin}>Di sini</Button>
+            <Button variant="link" size="sm" onClick={toLogin}>
+              Di sini
+            </Button>
           </span>
         </Form>
       </FormAuth>
