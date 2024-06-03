@@ -95,7 +95,7 @@ export default function RentalMobil() {
         onChangeValue={onChangeParams}
       />
 
-      <ListProductCust dataProduct={products} />
+      <ListProductCust dataProduct={products}/>
 
       <PaginationButton
         dataProduct={products}
