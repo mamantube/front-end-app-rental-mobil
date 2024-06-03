@@ -57,6 +57,22 @@ export default function DetailProductCust() {
   useEffect(() => {
     getDetailProduct();
   }, []);
+
+  function onRentalMobil() {
+    showLoading()
+
+    axios.post("api/v1/transaction/checkout")
+    .then((response) => {
+      console.log("ress", response.data.data)
+    })
+    .catch((error) => {
+      let {message} = error.response.data;
+      toast.error(message)
+    })
+    .finally(() => {
+      hideLoading()
+    })
+  }
   return (
     <section className=" min-vh-100">
       <NavBreadcrumb navList={navList} />
@@ -66,6 +82,7 @@ export default function DetailProductCust() {
         start_date={params.start_date}
         end_date={params.end_date}
         onChangeValue={onChangeParams}
+        onRental={onRentalMobil}
       />
     </section>
   );

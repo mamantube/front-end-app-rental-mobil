@@ -4,7 +4,7 @@ import { formatIDR } from "../../utils/formater";
 import moment from "moment";
 
 export default function ProductDetail(props) {
-  const { dataProduct, onChangeValue, start_date, end_date } = props;
+  const { dataProduct, onChangeValue, start_date, end_date, onRental } = props;
 
   const styleImg = {
     height: "260.5px",
@@ -86,6 +86,7 @@ export default function ProductDetail(props) {
             <Button
               variant="dark"
               className=" rounded-0 w-100" 
+              onClick={onRental}
             >
                Sewa Mobil
             </Button>

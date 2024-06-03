@@ -41,13 +41,15 @@ export default function Login() {
     axios
       .post("api/v1/user/login", values)
       .then((response) => {
-        let { token, role_user } = response.data.data;
+        let { token, role_user, user_id } = response.data.data;
 
         localStorage.setItem("role", role_user);
         localStorage.setItem("token", token);
+        localStorage.setItem("id", user_id);
 
         dispatch({ type: "SET_TOKEN", value: token });
         dispatch({ type: "SET_ROLE", value: role_user });
+        dispatch({ type: "SET_ID", value: user_id });
         console.log("INI", response.data.data);
         toast.success("Login Berhasil");
         navigateTo(role_user === "admin" ? "/admin/data-mobil" : "/customer/beranda");
@@ -67,10 +69,10 @@ export default function Login() {
     onSubmit: onSubmitForm,
   });
 
-  const { token } = useSelector((store) => store.user);
-  const { role } = useSelector((store) => store.user);
+  const { token, role, id } = useSelector((store) => store.user);
+  // const { role } = useSelector((store) => store.user);
 
-  if (token) {
+  if (token && id) {
     if (role === "admin") return <Navigate to="/admin/data-mobil" replace />;
 
     else if (role === "customer") return <Navigate to="/customer/beranda" replace />;

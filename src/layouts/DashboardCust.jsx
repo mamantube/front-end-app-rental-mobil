@@ -33,7 +33,7 @@ export default function DashboardCust() {
   let componentLoading;
   if (isLoading) componentLoading = <Loading />;
 
-  const { token, role } = useSelector((store) => store.user);
+  const { token, role, } = useSelector((store) => store.user);
 
   
   if (!token) return <Navigate to="/" replace />;

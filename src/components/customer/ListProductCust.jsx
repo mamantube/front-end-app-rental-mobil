@@ -7,8 +7,9 @@ import CardProduct from "../CardProduct";
 export default function ListProductCust({ dataProduct = [] }) {
   const navigateTo = useNavigate();
   const token = localStorage.getItem("token")
+  const id = localStorage.getItem("id")
   function productbtnCard(_id) {
-    if (token) {
+    if (token && id) {
       navigateTo(`/customer/rental-customer/detail-produk/${_id}`)
     } else {
       navigateTo("/login")
