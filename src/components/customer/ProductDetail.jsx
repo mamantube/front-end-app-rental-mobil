@@ -39,7 +39,7 @@ export default function ProductDetail(props) {
             <p className="text-h4">Informasi Penting</p>
             <p className="text-h6">Setelah anda pesan</p>
             <ul>
-                <li>Penyedia akan menghubungi pengemudi melalui WhatsApp untuk meminta foto beberapa dokumen wajib</li>
+                <li>Penyedia akan menghubungi penyewa melalui WhatsApp untuk meminta foto beberapa dokumen wajib</li>
             </ul>
             <p className="text-h6">Saat Pengambilan</p>
             <ul>

@@ -84,7 +84,7 @@ export default function Login() {
       className="d-flex justify-content-center align-items-center min-vh-100"
     >
       <FormAuth
-        title="Masuk ke Dashboard"
+        title="Login"
         subTitle="Masukkan Email dan Password"
       >
         <Form onSubmit={Formik.handleSubmit}>
