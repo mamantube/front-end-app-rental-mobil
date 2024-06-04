@@ -9,16 +9,16 @@ import { toast } from "react-toastify";
 
 export default function Register() {
   const schema = Yup.object({
-    first_name: Yup.string().min(1, "Nama depan tidak boleh kosong").trim(),
+    first_name: Yup.string().required().min(1, "Nama depan tidak boleh kosong").trim(),
     last_name: Yup.string().trim(),
-    phone: Yup.string()
-      .min(1, "Nomor hanphone tidak boleh kosong")
+    phone: Yup.string().required().
+      min(1, "Nomor hanphone tidak boleh kosong")
       .matches(
         /^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/,
         "Nomor hanphone tidak valid"
       ),
-    email: Yup.string().email("Email tidak valid"),
-    password: Yup.string().matches(
+    email: Yup.string().required().email("Email tidak valid"),
+    password: Yup.string().required().matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
       "Minimal 6 karakter, satu huruf besar dan satu angka"
     ),
