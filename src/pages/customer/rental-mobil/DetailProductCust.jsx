@@ -29,6 +29,8 @@ export default function DetailProductCust() {
   const [params, setParams] = useState({
     start_date: moment().format("YYYY-MM-DD"),
     end_date: moment().format("YYYY-MM-DD"),
+    user_id: localStorage.getItem("id"),
+    product_ids: [product_id]
   });
 
   function onChangeParams(event) {
@@ -61,12 +63,19 @@ export default function DetailProductCust() {
   function onRentalMobil() {
     showLoading()
 
-    axios.post("api/v1/transaction/checkout")
+    axios.post("api/v1/transaction/checkout", {
+      rental_duration : {
+        start_date: params.start_date,
+        end_date: params.end_date,
+      },
+      user_id: params.user_id,
+      product_ids: params.product_ids
+    })
     .then((response) => {
-      console.log("ress", response.data.data)
+      console.log("RES", response.data.data)
     })
     .catch((error) => {
-      let {message} = error.response.data;
+      let {message} = error.response;
       toast.error(message)
     })
     .finally(() => {
