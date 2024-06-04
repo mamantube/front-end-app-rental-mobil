@@ -1,6 +1,6 @@
 import NavBreadcrumb from "../../../components/NavBreadcrumb";
 import ProductDetail from "../../../components/customer/ProductDetail";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useAxios from "../../../hooks/useAxios";
 import useLoading from "../../../hooks/useLoading";
 import { useEffect } from "react";
@@ -9,6 +9,18 @@ import { useState } from "react";
 import moment from "moment";
 
 export default function DetailProductCust() {
+  const { product_id } = useParams();
+  const { showLoading, hideLoading } = useLoading();
+  const axios = useAxios();
+  const [data, setData] = useState([]);
+  const navigateTo = useNavigate()
+  const [params, setParams] = useState({
+    start_date: moment().format("YYYY-MM-DD"),
+    end_date: moment().format("YYYY-MM-DD"),
+    user_id: localStorage.getItem("id"),
+    product_ids: [product_id]
+  });
+
   let navList = [
     {
       to: "/customer/rental-mobil",
@@ -17,21 +29,11 @@ export default function DetailProductCust() {
     },
     {
       to: "/customer/rental-mobil",
-      title: "Detail Produk",
+      title: data.name,
       isActive: true,
     },
   ];
 
-  const { product_id } = useParams();
-  const { showLoading, hideLoading } = useLoading();
-  const axios = useAxios();
-  const [data, setData] = useState([]);
-  const [params, setParams] = useState({
-    start_date: moment().format("YYYY-MM-DD"),
-    end_date: moment().format("YYYY-MM-DD"),
-    user_id: localStorage.getItem("id"),
-    product_ids: [product_id]
-  });
 
   function onChangeParams(event) {
     let { name, value } = event.target;
@@ -75,11 +77,23 @@ export default function DetailProductCust() {
       const { token } = response.data.data
       
       console.log("RES", token)
-      window.snap.pay(token)
+      window.snap.pay(token, {
+        onSuccess: function() {
+          navigateTo("/customer/data-transaksi")
+        },
+        onPending: function() {
+          navigateTo("/customer/data-transaksi")
+        },
+        onError: function() {
+          navigateTo("/customer/data-transaksi")
+        },
+        onClose: function() {
+          navigateTo("/customer/data-transaksi")
+        },
+      })
     })
     .catch((error) => {
-      let {message} = error.response;
-      toast.error(message)
+      console.log("Err", error.response.data)
     })
     .finally(() => {
       hideLoading()
