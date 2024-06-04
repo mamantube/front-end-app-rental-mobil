@@ -72,7 +72,10 @@ export default function DetailProductCust() {
       product_ids: params.product_ids
     })
     .then((response) => {
-      console.log("RES", response.data.data)
+      const { token } = response.data.data
+      
+      console.log("RES", token)
+      window.snap.pay(token)
     })
     .catch((error) => {
       let {message} = error.response;
