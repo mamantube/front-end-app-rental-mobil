@@ -1,7 +1,7 @@
 const initialState = {
     token: localStorage.getItem("token") || null,
     role: localStorage.getItem("role") || null,
-    user_id: localStorage.getItem("id") || null,
+    user_id: localStorage.getItem("user_id") || null,
 };
 
 export const reducerUser = ( state = initialState, actions) => {
@@ -16,10 +16,10 @@ export const reducerUser = ( state = initialState, actions) => {
                 ...state,
                 role: actions.value
             };
-        case "SET_ID": 
+        case "SET_USER_ID": 
             return {
                 ...state,
-                token: actions.value
+                user_id: actions.value
             }
         default:
             return state;
