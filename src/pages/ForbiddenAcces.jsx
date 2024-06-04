@@ -11,6 +11,7 @@ export default function ForbiddenAccess() {
 
     dispatch({ type: "SET_TOKEN", value: null });
     dispatch({ type: "SET_ROLE", value: null });
+    dispatch({ type: "SET_USER_ID", value: null })
     return navigateTo("/");
   }
 

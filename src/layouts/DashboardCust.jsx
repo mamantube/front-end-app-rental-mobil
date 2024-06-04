@@ -14,11 +14,11 @@ export default function DashboardCust() {
   let cssShowMenu = show ? "d-block" : "d-none";
 
   function onLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role")
+    localStorage.clear()
 
     dispatch({ type: "SET_TOKEN", value: null });
     dispatch({ type: "SET_ROLE", value: null });
+    dispatch({ type: "SET_USER_ID", value: null })
 
     navigateTo("/");
   }

@@ -49,7 +49,7 @@ export default function Login() {
 
         dispatch({ type: "SET_TOKEN", value: token });
         dispatch({ type: "SET_ROLE", value: role_user });
-        dispatch({ type: "SET_ID", value: user_id });
+        dispatch({ type: "SET_USER_ID", value: user_id });
         console.log("INI", response.data.data);
         toast.success("Login Berhasil");
         navigateTo(role_user === "admin" ? "/admin/data-mobil" : "/customer/beranda");
