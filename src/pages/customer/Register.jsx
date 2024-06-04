@@ -9,19 +9,27 @@ import { toast } from "react-toastify";
 
 export default function Register() {
   const schema = Yup.object({
-    first_name: Yup.string().required().min(1, "Nama depan tidak boleh kosong").trim(),
+    first_name: Yup.string()
+      .required("Nama depan tidak boleh kosong")
+      .min(1, "Nama depan tidak boleh kosong")
+      .trim(),
     last_name: Yup.string().trim(),
-    phone: Yup.string().required().
-      min(1, "Nomor hanphone tidak boleh kosong")
+    phone: Yup.string()
+      .required("Nomor hanphone tidak boleh kosong")
+      .min(1, "Nomor hanphone tidak boleh kosong")
       .matches(
         /^(\+62|62)?[\s-]?0?8[1-9]{1}\d{1}[\s-]?\d{4}[\s-]?\d{2,5}$/,
         "Nomor hanphone tidak valid"
       ),
-    email: Yup.string().required().email("Email tidak valid"),
-    password: Yup.string().required().matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
-      "Minimal 6 karakter, satu huruf besar dan satu angka"
-    ),
+    email: Yup.string()
+      .required("Email tidak boleh kosong")
+      .email("Email tidak valid"),
+    password: Yup.string()
+      .required("Password tidak boleh kosong")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+        "Minimal 6 karakter, satu huruf besar dan satu angka"
+      ),
   });
 
   const initialForm = {
@@ -78,7 +86,12 @@ export default function Register() {
               value={Formik.values.first_name}
               onChange={Formik.handleChange}
               className=" border-secondary"
+              isInvalid={!!Formik.errors.first_name}
             />
+
+            <Form.Control.Feedback type="invalid">
+              {Formik.errors.first_name}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className=" mb-3">
@@ -100,7 +113,12 @@ export default function Register() {
               value={Formik.values.phone}
               onChange={Formik.handleChange}
               className=" border-secondary"
+              isInvalid={!!Formik.errors.phone}
             />
+
+            <Form.Control.Feedback type="invalid">
+              {Formik.errors.phone}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className=" mb-3">
@@ -111,7 +129,12 @@ export default function Register() {
               value={Formik.values.email}
               onChange={Formik.handleChange}
               className=" border-secondary"
+              isInvalid={!!Formik.errors.email}
             />
+
+            <Form.Control.Feedback type="invalid">
+              {Formik.errors.email}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className=" mb-3">
@@ -122,6 +145,7 @@ export default function Register() {
               value={Formik.values.password}
               onChange={Formik.handleChange}
               className=" border-secondary"
+              isInvalid={!!Formik.errors.password}
             />
             <Form.Control.Feedback type="invalid">
               {Formik.errors.password}
