@@ -62,6 +62,8 @@ export default function DetailProductCust() {
     getDetailProduct();
   }, []);
 
+  
+
   function onRentalMobil() {
     showLoading()
 
@@ -74,9 +76,9 @@ export default function DetailProductCust() {
       product_ids: params.product_ids
     })
     .then((response) => {
-      const { token } = response.data.data
+      const { token} = response.data.data
       
-      console.log("RES", token)
+      console.log("RES", response.data.data)
       window.snap.pay(token, {
         onSuccess: function() {
           navigateTo("/customer/data-transaksi")
@@ -88,7 +90,9 @@ export default function DetailProductCust() {
           navigateTo("/customer/data-transaksi")
         },
         onClose: function() {
-          navigateTo("/customer/data-transaksi")
+          toast.success("Anda tidak jadi booking")
+          onRejectRent(token)
+          navigateTo(getDetailProduct)
         },
       })
     })
@@ -98,6 +102,17 @@ export default function DetailProductCust() {
     .finally(() => {
       hideLoading()
     })
+  }
+
+  async function onRejectRent(token) {
+    console.log("token", token)
+    await axios.delete(`/api/v1/transaction/erase/${token}`)
+    .then(() => {
+      // console.log("reject", response.data.data)
+      toast.success("Anda tidak jadi booking")
+    }).catch((error) => {
+      console.log("Err", error.response.data)
+    }) 
   }
   return (
     <section className=" min-vh-100">
