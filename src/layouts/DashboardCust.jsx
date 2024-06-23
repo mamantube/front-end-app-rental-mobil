@@ -95,7 +95,7 @@ export default function DashboardCust() {
               </NavLink>
 
               <NavLink
-                to="/customer/profile"
+                to="/customer/profile-anda"
                 className=" my-md-0 my-2 inactive"
                 activeclassname="active"
               >

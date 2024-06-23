@@ -17,6 +17,7 @@ import ForbiddenAccess from "./pages/ForbiddenAcces";
 import RentalMobil from "./pages/RentalMobil";
 import RentalCust from "./pages/customer/rental-mobil/RentalCust";
 import DetailProductCust from "./pages/customer/rental-mobil/DetailProductCust";
+import ProfilAnda from "./pages/customer/profil-anda/ProfilAnda";
 
 
 export default function App() {
@@ -42,7 +43,9 @@ export default function App() {
             <Route path="detail-produk/:product_id" Component={DetailProductCust} />
           </Route>
           <Route path="data-transaksi" Component={DaftarSewa} />
+          <Route path="profile-anda" Component={ProfilAnda} />
         </Route>
+        
         <Route Component={LayoutLanding}>
           <Route index path="/" Component={Beranda} />
           <Route path="data-mobil" Component={RentalMobil} />
