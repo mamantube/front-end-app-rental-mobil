@@ -124,7 +124,7 @@ export default function Login() {
           <span className=" d-flex">
             <p className=" mt-3">Belum mempunyai akun? Silahkan daftar <NavLink className=" text-primary" to="/register" >Di sini</NavLink>  </p>
           </span>
-          <Button onClick={toBeranda} variant="outline-primary">
+          <Button size="sm" onClick={toBeranda} variant="outline-primary">
             Ke beranda
           </Button>
         </Form>

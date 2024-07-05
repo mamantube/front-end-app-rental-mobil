@@ -169,7 +169,7 @@ export default function Register() {
               </NavLink>{" "}
             </p>
           </span>
-          <Button onClick={toBeranda} variant="outline-primary">
+          <Button size="sm" onClick={toBeranda} variant="outline-primary">
             Ke beranda
           </Button>
         </Form>
