@@ -67,6 +67,10 @@ export default function Register() {
     validationSchema: schema,
     onSubmit: onSubmitForm,
   });
+
+  function toBeranda() {
+    navigateTo("/");
+  }
   return (
     <main
       id="register--form"
@@ -153,8 +157,16 @@ export default function Register() {
           </Button>
 
           <span className=" d-flex">
-            <p className=" mt-3">Sudah mempunyai akun? Silahkan masuk <NavLink className="text-primary" to="/login">Di sini</NavLink>  </p>
+            <p className=" mt-3">
+              Sudah mempunyai akun? Silahkan masuk{" "}
+              <NavLink className="text-primary" to="/login">
+                Di sini
+              </NavLink>{" "}
+            </p>
           </span>
+          <Button onClick={toBeranda} variant="outline-primary">
+            Ke beranda
+          </Button>
         </Form>
       </FormAuth>
     </main>
