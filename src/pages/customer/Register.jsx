@@ -87,6 +87,7 @@ export default function Register() {
               onChange={Formik.handleChange}
               className=" border-secondary"
               isInvalid={!!Formik.errors.first_name}
+              autoComplete="off"
             />
 
             <Form.Control.Feedback type="invalid">
@@ -102,6 +103,7 @@ export default function Register() {
               value={Formik.values.last_name}
               onChange={Formik.handleChange}
               className=" border-secondary"
+              autoComplete="off"
             />
           </Form.Group>
 
@@ -114,6 +116,7 @@ export default function Register() {
               onChange={Formik.handleChange}
               className=" border-secondary"
               isInvalid={!!Formik.errors.phone}
+              autoComplete="off"
             />
 
             <Form.Control.Feedback type="invalid">
@@ -130,6 +133,7 @@ export default function Register() {
               onChange={Formik.handleChange}
               className=" border-secondary"
               isInvalid={!!Formik.errors.email}
+              autoComplete="off"
             />
 
             <Form.Control.Feedback type="invalid">
@@ -146,6 +150,7 @@ export default function Register() {
               onChange={Formik.handleChange}
               className=" border-secondary"
               isInvalid={!!Formik.errors.password}
+              autoComplete="off"
             />
             <Form.Control.Feedback type="invalid">
               {Formik.errors.password}

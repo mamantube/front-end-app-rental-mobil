@@ -18,6 +18,7 @@ export default function SearchProduct(props) {
                 name="q"
                 value={q}
                 onChange={(e) => onChangeValue(e)}
+                autoComplete="off"
               />
             </Col>
 
