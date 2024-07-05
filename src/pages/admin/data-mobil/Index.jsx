@@ -44,7 +44,7 @@ export default function DataMobil() {
   const [totalPage, setTotalPage] = useState(0);
 
   const onPagePagination = (page) => {
-    console.log("ini", page, params);
+    // console.log("ini", page, params);
     setParams({ ...params, page });
 
     setLoad(true);
@@ -58,13 +58,13 @@ export default function DataMobil() {
   function searchProduct() {
     showLoading();
 
-    console.log("test", params);
+    // console.log("test", params);
 
     axios
       .get("api/v1/product", { params })
       .then((response) => {
         setProducts(response.data.data);
-        console.log(response.data.data);
+        // console.log(response.data.data);
 
         const { total } = response.data.pagination;
 

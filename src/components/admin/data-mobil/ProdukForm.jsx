@@ -38,7 +38,7 @@ export default function ProdukForm(props) {
   const [srcImage, setSrcImage] = useState(null);
 
   const handleChangeFile = (event) => {
-    console.log("INI", event.target.files[0]);
+    // console.log("INI", event.target.files[0]);
 
     let file = event.target.files[0];
     Formik.values.image = file;

@@ -48,7 +48,7 @@ export default function Beranda() {
       .get("/api/v1/customer/product", {params: { ...params}}
       )
       .then((response) => {
-        console.log("res", response.data.data);
+        // console.log("res", response.data.data);
         setProducts(response.data.data)
       })
       .catch((error) => {

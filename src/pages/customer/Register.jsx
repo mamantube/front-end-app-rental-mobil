@@ -48,9 +48,9 @@ export default function Register() {
     showLoading();
     axios
       .post("/api/v1/user/register", values)
-      .then((response) => {
+      .then(() => {
         navigateTo("/login");
-        console.log("coba", response.data.data);
+        // console.log("coba", response.data.data);
         toast.success("Daftar berhasil, silahkan masuk");
       })
       .catch((error) => {

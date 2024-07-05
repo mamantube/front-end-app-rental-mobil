@@ -46,7 +46,7 @@ export default function DetailProductCust() {
     axios
       .get(`api/v1/customer/product/${product_id}`)
       .then((response) => {
-        console.log("RES", response.data.data);
+        // console.log("RES", response.data.data);
         setData(response.data.data);
       })
       .catch((error) => {
@@ -78,7 +78,7 @@ export default function DetailProductCust() {
     .then((response) => {
       const { token} = response.data.data
       
-      console.log("RES", response.data.data)
+      // console.log("RES", response.data.data)
       window.snap.pay(token, {
         onSuccess: function() {
           navigateTo("/customer/data-transaksi")
@@ -97,7 +97,7 @@ export default function DetailProductCust() {
       })
     })
     .catch((error) => {
-      console.log("Err", error.response.data)
+      toast.error(error.response.data)
     })
     .finally(() => {
       hideLoading()
@@ -105,13 +105,13 @@ export default function DetailProductCust() {
   }
 
   async function onRejectRent(token) {
-    console.log("token", token)
+    // console.log("token", token)
     await axios.delete(`/api/v1/transaction/erase/${token}`)
     .then(() => {
       // console.log("reject", response.data.data)
       toast.success("Anda tidak jadi booking")
     }).catch((error) => {
-      console.log("Err", error.response.data)
+      toast.error(error.response.data)
     }) 
   }
   return (

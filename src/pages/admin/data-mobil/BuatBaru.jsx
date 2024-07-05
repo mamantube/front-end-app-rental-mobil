@@ -33,7 +33,7 @@ export default function BuatBaru () {
           formData.append(key, values[key]);
         }
     
-        console.log("Test", values)
+        // console.log("Test", values)
     
         showLoading();
     

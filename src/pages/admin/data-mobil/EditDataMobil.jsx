@@ -96,7 +96,7 @@ export default function EditDataMobil() {
         if(data) {
             for (let resError of data.errors) {
                 toast.error(resError.message)
-                console.log("error", resError.message)
+                // console.log("error", resError.message)
             }
             return
         }
@@ -113,7 +113,7 @@ export default function EditDataMobil() {
     axios
       .get(`/api/v1/product/${product_id}`)
       .then((response) => {
-        console.log("Data", response.data.data);
+        // console.log("Data", response.data.data);
         setData(response.data.data);
       })
       .catch((error) => {
@@ -123,7 +123,7 @@ export default function EditDataMobil() {
       .finally(() => {
         hideLoading();
       });
-    console.log("ini");
+    // console.log("ini");
   }
 
   const { showLoading, hideLoading } = useLoading();

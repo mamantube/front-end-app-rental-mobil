@@ -49,7 +49,7 @@ export default function RentalMobil() {
   }
 
   function onPagination(page) {
-    console.log("Ini", page, params);
+    // console.log("Ini", page, params);
     setParams({ ...params, page });
 
     setLoad(true);
@@ -59,7 +59,7 @@ export default function RentalMobil() {
   function searchProduct() {
     showLoading();
 
-    console.log("test", params);
+    // console.log("test", params);
 
     axios
       .get("/api/v1/customer/product", { params })
