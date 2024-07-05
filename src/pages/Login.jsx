@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import useLoading from "../hooks/useLoading";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, NavLink} from "react-router-dom";
 import useAxios from "../hooks/useAxios";
 
 export default function Login() {
@@ -31,10 +31,6 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
   const axios = useAxios();
-
-  function toRegist() {
-    navigateTo("/register")
-  }
 
   function onSubmitForm(values) {
     showLoading();
@@ -120,10 +116,7 @@ export default function Login() {
             Masuk
           </Button>
           <span className=" d-flex">
-            <p className=" mt-3">Belum mempunyai akun? Silahkan daftar </p>
-            <Button variant="link" size="sm" onClick={toRegist}>
-              Di sini
-            </Button>
+            <p className=" mt-3">Belum mempunyai akun? Silahkan daftar <NavLink className=" text-primary" to="/register" >Di sini</NavLink>  </p>
           </span>
         </Form>
       </FormAuth>

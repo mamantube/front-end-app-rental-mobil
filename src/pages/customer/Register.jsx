@@ -3,7 +3,7 @@ import FormAuth from "../../components/FormAuth";
 import * as Yup from "yup";
 import useAxios from "../../hooks/useAxios";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import useLoading from "../../hooks/useLoading";
 import { toast } from "react-toastify";
 
@@ -43,10 +43,6 @@ export default function Register() {
   const axios = useAxios();
   const navigateTo = useNavigate();
   const { showLoading, hideLoading } = useLoading();
-
-  function toLogin() {
-    navigateTo("/login");
-  }
 
   function onSubmitForm(values) {
     showLoading();
@@ -157,10 +153,7 @@ export default function Register() {
           </Button>
 
           <span className=" d-flex">
-            <p className=" mt-3">Sudah mempunyai akun? Silahkan masuk </p>
-            <Button variant="link" size="sm" onClick={toLogin}>
-              Di sini
-            </Button>
+            <p className=" mt-3">Sudah mempunyai akun? Silahkan masuk <NavLink className="text-primary" to="/login">Di sini</NavLink>  </p>
           </span>
         </Form>
       </FormAuth>
