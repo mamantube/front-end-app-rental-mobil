@@ -1,23 +1,23 @@
 import { BrowserRouter, Routes, Route} from "react-router-dom";
-import LayoutDashboard from "./layouts/Dashboard";
 import LayoutLanding from "./layouts/Landing";
-import Beranda from "./pages/Beranda";
-import DataMobil from "./pages/admin/data-mobil/Index";
-import BuatBaru from "./pages/admin/data-mobil/BuatBaru";
-import DataPengguna from "./pages/admin/data-pengguna";
-import DataTransaksi from "./pages/admin/data-transaksi";
-import Login from "./pages/Login";
-import LayoutDefault from "./layouts/Default";
-import EditDataMobil from "./pages/admin/data-mobil/EditDataMobil";
-import Register from "./pages/customer/Register";
-import DashboardCust from "./layouts/DashboardCust";
-import BerandaIdx from "./pages/customer/beranda/index";
-import DaftarSewa from "./pages/customer/daftar-sewa/DaftarSewa";
-import ForbiddenAccess from "./pages/ForbiddenAcces";
-import RentalMobil from "./pages/RentalMobil";
-import RentalCust from "./pages/customer/rental-mobil/RentalCust";
-import DetailProductCust from "./pages/customer/rental-mobil/DetailProductCust";
-import ProfilAnda from "./pages/customer/profil-anda/ProfilAnda";
+// import Beranda from "./pages/Beranda";
+// import RentalMobil from "./pages/RentalMobil";
+// import LayoutDashboard from "./layouts/Dashboard";
+// import DataMobil from "./pages/admin/data-mobil/Index";
+// import BuatBaru from "./pages/admin/data-mobil/BuatBaru";
+// import DataPengguna from "./pages/admin/data-pengguna";
+// import DataTransaksi from "./pages/admin/data-transaksi";
+// import Login from "./pages/Login";
+// import LayoutDefault from "./layouts/Default";
+// import EditDataMobil from "./pages/admin/data-mobil/EditDataMobil";
+// import Register from "./pages/customer/Register";
+// import DashboardCust from "./layouts/DashboardCust";
+// import BerandaIdx from "./pages/customer/beranda/index";
+// import DaftarSewa from "./pages/customer/daftar-sewa/DaftarSewa";
+// import ForbiddenAccess from "./pages/ForbiddenAcces";
+// import RentalCust from "./pages/customer/rental-mobil/RentalCust";
+// import DetailProductCust from "./pages/customer/rental-mobil/DetailProductCust";
+// import ProfilAnda from "./pages/customer/profil-anda/ProfilAnda";
 
 
 export default function App() {
@@ -25,7 +25,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route path="admin" Component={LayoutDashboard}>
+        {/* <Route path="admin" Component={LayoutDashboard}>
           <Route path="data-mobil">
             <Route index Component={DataMobil} />
             <Route path="buat-baru" Component={BuatBaru} />
@@ -44,20 +44,20 @@ export default function App() {
           </Route>
           <Route path="data-transaksi" Component={DaftarSewa} />
           <Route path="profile-anda" Component={ProfilAnda} />
-        </Route>
+        </Route> */}
         
-        <Route Component={LayoutLanding}>
-          <Route index path="/" Component={Beranda} />
-          <Route path="data-mobil" Component={RentalMobil} />
+        <Route path="/" Component={LayoutLanding}>
+          {/* <Route index path="/" Component={Beranda} /> */}
+          {/* <Route path="data-mobil" Component={RentalMobil} /> */}
         </Route>
 
-        <Route Component={LayoutDefault}>
+        {/* <Route Component={LayoutDefault}>
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
           <Route path="/Forbidden" Component={ForbiddenAccess} />
           <Route path="/*" element={<h1>Page Not Found :( </h1>} />
 
-        </Route>
+        </Route> */}
 
       </Routes>
     </BrowserRouter>

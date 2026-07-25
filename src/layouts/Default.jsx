@@ -1,24 +1,24 @@
-import { Outlet } from "react-router-dom";
-import Loading from "../components/Loading";
-import useLoading from "../hooks/useLoading";
-import { ToastContainer } from "react-toastify"
-import { Container } from "react-bootstrap";
+// import { Outlet } from "react-router-dom";
+// import Loading from "../components/Loading";
+// import useLoading from "../hooks/useLoading";
+// import { ToastContainer } from "react-toastify"
+// import { Container } from "react-bootstrap";
 
-export default function LayoutDefault () {
-    const { isLoading } = useLoading()
+// export default function LayoutDefault () {
+//     const { isLoading } = useLoading()
 
-    let loadingComponent;
+//     let loadingComponent;
 
-    if ( isLoading ) loadingComponent = <Loading />
-    return (
-        <>
-            <ToastContainer position="top-right" />
-            {loadingComponent}
+//     if ( isLoading ) loadingComponent = <Loading />
+//     return (
+//         <>
+//             <ToastContainer position="top-right" />
+//             {loadingComponent}
             
-            <Container>
-                <Outlet key="layout-default" />
-            </Container>
-        </>
+//             <Container>
+//                 <Outlet key="layout-default" />
+//             </Container>
+//         </>
 
-    )
-}
+//     )
+// }
