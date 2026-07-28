@@ -6,7 +6,9 @@ import { Provider} from "react-redux";
 // import "./assets/CSS/Global.css";
 import 'react-toastify/dist/ReactToastify.css';
 import "./index.css";
-
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
