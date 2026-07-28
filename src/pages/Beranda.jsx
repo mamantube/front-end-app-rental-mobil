@@ -1,3 +1,55 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+
+
+const slides = [
+  {
+    id: 1,
+    image: "/img/Toyota86garage.png",
+    title: "slide1",
+  },
+  {
+    id: 2,
+    image: "/img/rubicon.jpg",
+    title: "slide2",
+  },
+  {
+    id: 3,
+    image: "/img/Toyota86garage.png",
+    title: "slide2",
+  },
+];
+
+export default function Beranda() {
+  return (
+    <div>
+      <section>
+        <Swiper
+          modules={[Navigation, Autoplay, Pagination]}
+          navigation
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          loop={true}
+          className=" overflow-hidden"
+        >
+          {slides.map((slide) => (
+            <SwiperSlide key={slide.id}>
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="w-full h-[500px] object-cover"
+              />
+
+              <div></div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </section>
+    </div>
+  );
+}
+
 // /* eslint-disable react-hooks/exhaustive-deps */
 // import { Carousel, Row, Col, Button } from "react-bootstrap";
 // import ListProductCust from "../components/customer/ListProductCust";
@@ -133,7 +185,6 @@
 //         style={{ height: "550px", width: "100%" }}
 //       />
 
-      
 //     </>
 //   );
 // }
