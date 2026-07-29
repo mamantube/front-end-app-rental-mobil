@@ -1,7 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-
-
+import { useEffect, useState } from "react";
+import useLoading from "../hooks/useLoading";
+import useAxios from "../hooks/useAxios";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ListProductCust from "../components/customer/ListProductCust";
 
 const slides = [
   {
@@ -16,12 +21,41 @@ const slides = [
   },
   {
     id: 3,
-    image: "/img/Toyota86garage.png",
+    image: "/img/garage.jpg",
     title: "slide2",
   },
 ];
 
 export default function Beranda() {
+  const { showLoading, hideLoading } = useLoading();
+  const axios = useAxios();
+  const [products, setProducts] = useState([]);
+  const { token, role } = useSelector((store) => store.user);
+
+  const params = {
+    q: "",
+    page: 1,
+    per_page: 8,
+    start_date: moment().format("YYYY-MM-DD"),
+    end_date: moment().format("YYYY-MM-DD"),
+  }
+
+  useEffect(() => {
+    showLoading();
+    axios
+      .get("/api/v1/customer/product", { params: { ...params } })
+      .then((response) => {
+        console.log("res", response.data.data);
+        setProducts(response.data.data);
+      })
+      .catch((error) => {
+        console.log("error", error.response.data);
+      })
+      .finally(() => {
+        hideLoading();
+      });
+  }, []);
+
   return (
     <div>
       <section>
@@ -38,7 +72,7 @@ export default function Beranda() {
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-[500px] object-cover"
+                className="w-full lg:h-[500px] object-cover md:h-[250px]"
               />
 
               <div></div>
@@ -46,6 +80,57 @@ export default function Beranda() {
           ))}
         </Swiper>
       </section>
+
+      <section className="text-center mt-16">
+        <h2 className="text-3xl font-bold mb-4">Kenapa Memilih Kami?</h2>
+        <div className="flex flex-col md:flex-row gap-8 px-4 mt-8">
+          <div className="px-4 py-6 border rounded shadow">
+            <h3 className="text-xl font-semibold mb-2">Banyak Pilihan</h3>
+            <p>Tersedia berbagai jenis mobil tersedia sesuai kebutuhan Anda dan keluarga</p>
+          </div>
+          <div className="px-4 py-6 border rounded shadow sm:py-6">
+            <h3 className="text-xl font-semibold mb-2">Syarat Simpel</h3>
+            <p>Cukup dengan melengkapi dokumen KTP, SIM A dan NPWP</p>
+          </div>
+          <div className="px-4 py-6 border rounded shadow sm:px-6">
+            <h3 className="text-xl font-semibold mb-2">Pembayaran Mudah</h3>
+            <p>Tersedia QRIS, Transfer bank, dompet digital dan metode lainnya</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="text-center mt-16">
+        <h1 className="text-2xl font-bold text-center">Armada Kami</h1>
+        <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 py-10">
+          <ListProductCust dataProduct={products} />
+        </div>
+
+        <div>
+          <button className="cursor-pointer rounded-lg border border-gray-800 px-4 hover:scale-110 duration-500 transition hover:bg-gray-800 hover:text-white">
+            Lihat Lebih Banyak
+          </button>
+        </div>
+      </section>
+
+      <section className="mt-16 px-16 py-16 grid lg:grid-cols-2 md:grid-rows-1 bg-gray-800 text-white">
+        <div className="flex flex-col justify-center">
+          <h2 className="text-2xl font-bold">MAMAN RENTAL MOBIL</h2>
+          <p className="mt-4">Hadir untuk memberikan pengalaman rental mobil yang nyaman <br /> dan terpercaya dengan pilihan armada lengkap</p>
+        </div>
+        <div className="flex flex-col mt-4 md:items-center md:justify-center">
+          <p className="text-lg font-semibold text-center">Quick link</p>
+          <ul className="ps-32">
+            <li className="hover:scale-110 duration-500 transition hover:text-gray-400 cursor-pointer">Beranda</li>
+            <li className="hover:scale-110 duration-500 transition hover:text-gray-400 cursor-pointer">Armada Kami</li>
+            <li className="hover:scale-110 duration-500 transition hover:text-gray-400 cursor-pointer">Email: info@mamanrentalmobil.com</li>
+            <li className="hover:scale-110 duration-500 transition hover:text-gray-400 cursor-pointer">Whatsapp: 089 123 456 789</li>
+          </ul>
+          
+        </div>
+      </section>
+
+
+  
     </div>
   );
 }
