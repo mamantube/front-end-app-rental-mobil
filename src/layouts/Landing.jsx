@@ -34,7 +34,7 @@ export default function LayoutLanding() {
 
   return (
     <header>
-      <nav className="sticky flex justify-between bg-white py-4 px-6 items-center shadow-sm">
+      <nav className="fixed z-10 w-screen top-0 flex justify-between bg-white py-4 px-16 items-center shadow-lg">
         <div className="flex gap-4 items-center">
           <h1 className="text-gray-800 text-2xl font-bold">
             <NavLink to="/">MAREMO</NavLink>
@@ -63,13 +63,13 @@ export default function LayoutLanding() {
             <span className="relative block size-5">
               <span
                 className={[
-                  "absolute left-0 block h-[1.5px] w-4 bg-white transition-all duration-150",
+                  "absolute left-0 block h-[1.5px] w-4 bg-gray-800 transition-all duration-150",
                   show ? "top-2.5 rotate-45" : "top-1",
                 ].join(" ")}
               />
               <span
                 className={[
-                  "absolute left-0 block h-[1.5px] w-4 bg-white transition-all duration-150",
+                  "absolute left-0 block h-[1.5px] w-4 bg-gray-800 transition-all duration-150",
                   show ? "top-2.5 -rotate-45" : "top-3",
                 ].join(" ")}
               />
@@ -78,22 +78,18 @@ export default function LayoutLanding() {
           </button>
         </div>
       </nav>
-      <div
-        id="mobile-menu"
-        className={`overflow-hidden bg-gray-700 transition-all duration-300 lg:hidden ${show ? "block" : "hidden"}`}
-      >
-        <div className="flex flex-col gap-2 p-4">
-          <NavLink>Beranda</NavLink>
-          <NavLink>Rental Mobil</NavLink>
-          <button className="cursor-pointer font-semibold overflow-hidden relative z-100 border rounded-md border-green-500 group px-2 bg-white" onClick={onToLogin}>
-            <span className="relative z-10 text-gray-700 group-hover:text-white text-sm duration-500">
+        <div
+          id="mobile-menu"
+          className={`fixed z-10 top-16 overflow-hidden shadow-lg bg-white w-screen border-1.5 transition-all duration-300 lg:hidden ${show ? "block" : "hidden"}`}
+        >
+          <div className="flex flex-col gap-2 py-4 px-6">
+            <NavLink className="">Beranda</NavLink>
+            <NavLink className="">Rental Mobil</NavLink>
+            <button className="items-center cursor-pointer rounded-lg border w-28 bg-gray-800 text-white border-gray-800 hover:scale-110 duration-500 transition hover:bg-gray-800 hover:text-white " onClick={onToLogin} >
               Book Now
-            </span>
-            <span className="absolute w-full h-full bg-[#364153] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"></span>
-            <span className="absolute w-full h-full bg-[#1E293B] -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"></span>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
 
       {/* {componentLoading} */}
       {/* <nav
