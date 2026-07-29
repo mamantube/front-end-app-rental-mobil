@@ -1,3 +1,33 @@
+import { formatIDR } from "../utils/formater";
+import { useLocation } from "react-router-dom";
+import {} from "lucide-react";
+
+export default function CardProduct(props) {
+  const {
+    product = {},
+    buttonText = "Book Now",
+    onClickBtnCard = () => {},
+  } = props;
+
+  const location = useLocation();
+  const customerCardBtn = location.pathname.includes("/admin");
+  const finalButtonText = customerCardBtn ? "Edit" : buttonText;
+
+  return (
+    <>
+      <div className="group overflow-hidden border rounded-2xl bg-white shadow-md transition-all duration-150 hover:translate-y-2 hover:shadow-2xl">
+        <div className="relative overflow-hidden">
+          <img
+            src={product.storage_detail.secure_url}
+            alt={product.name}
+            className="h-50 w-full object-cover transition duration-500 group-hover:scale-110"
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
 // /* eslint-disable react/prop-types */
 // import { formatIDR } from "../utils/formater";
 // import { useLocation } from "react-router-dom";
@@ -45,7 +75,7 @@
 //   return (
 //     <Card className=" rounded-0 h-100 shadow">
 //       {element}
-      
+
 //       <Card.Body className=" text-center">
 //         <Card.Title>{product.name}</Card.Title>
 //         <Card.Text>{formatIDR(product.price)}</Card.Text>

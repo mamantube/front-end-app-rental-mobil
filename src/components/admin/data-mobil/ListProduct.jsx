@@ -1,3 +1,29 @@
+import EmptyProduct from "../../EmptyProduct";
+import { useNavigate } from "react-router-dom";
+import CardProduct from "../../CardProduct";
+
+export default function ListProduct( dataProduct = []) {
+    const navigateTo = useNavigate();
+
+    const goToEdit = (_id) => {
+        navigateTo(`/admin/data-mobil/edit/${_id}`)
+    }
+
+    if (!dataProduct.length) return <EmptyProduct />;
+
+    return (
+        <section>
+            {dataProduct.map((detailProduct, index) => (
+                <CardProduct
+                    key={`card-product-${index + 1}`}
+                    product={detailProduct}
+                    onClickBtnCard={() => goToEdit(detailProduct._id)}
+                />
+            ))}
+        </section>
+    )
+}
+
 // /* eslint-disable react/prop-types */
 // import { Row, Col } from "react-bootstrap";
 // import EmptyProduct from "../../EmptyProduct";
