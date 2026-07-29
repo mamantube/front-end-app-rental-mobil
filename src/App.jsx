@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import LayoutLanding from "./layouts/Landing";
-// import Beranda from "./pages/Beranda";
+import Beranda from "./pages/Beranda";
 // import RentalMobil from "./pages/RentalMobil";
 // import LayoutDashboard from "./layouts/Dashboard";
 // import DataMobil from "./pages/admin/data-mobil/Index";
@@ -47,7 +47,7 @@ export default function App() {
         </Route> */}
         
         <Route path="/" Component={LayoutLanding}>
-          {/* <Route index path="/" Component={Beranda} /> */}
+          <Route index path="/" Component={Beranda} />
           {/* <Route path="data-mobil" Component={RentalMobil} /> */}
         </Route>
 
