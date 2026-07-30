@@ -23,6 +23,17 @@ export default function CardProduct(props) {
             className="h-50 w-full object-cover transition duration-500 group-hover:scale-110"
           />
         </div>
+        <div className="space-y-4 p-5">
+          <h3 className="text-xl font-bold"> { product.name} </h3>
+        </div>
+        <div className="flex items-center justify-between border-t pt-4 px-2">
+          <div>
+            <p className="text-sm text-gray-500">Mulai dari</p>
+            <h2 className="text-2xl font-bold text-blue-600">{ formatIDR(product.price)}</h2>
+            <span className="text-sm text-gray-500">/hari</span>
+          </div>
+            <button className="rounded-xl cursor-pointer bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700" onClick={onClickBtnCard}>{finalButtonText}</button>
+        </div>
       </div>
     </>
   );
