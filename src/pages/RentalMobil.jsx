@@ -1,3 +1,105 @@
+import { useState, useEffect } from "react";
+import ListProductCust from "../components/customer/ListProductCust";
+import useAxios from "../hooks/useAxios";
+import moment from "moment";
+import NavBreadcrumb from "../components/NavBreadcrumb";
+import useLoading from "../hooks/useLoading";
+import SearchProduct from "../components/customer/SearchProduct";
+import PaginationButton from "../components/PaginationButton";
+
+export default function RentalMobil() {
+  let navList = [
+    {
+      to: "/customer/beranda",
+      title: "Beranda",
+      isActive: false,
+    },
+    {
+      to: "/customer/beranda",
+      title: "Rental Mobil",
+      isActive: true,
+    },
+  ];
+
+  const { showLoading, hideLoading } = useLoading();
+  const [products, setProducts] = useState([]);
+  const axios = useAxios();
+  const [load, setLoad] = useState(false);
+  const [totalPage, setTotalPage] = useState(0);
+  const [params, setParams] = useState({
+    q: "",
+    page: 1,
+    per_page: 20,
+    start_date: moment().format("YYYY-MM-DD"),
+    end_date: moment().format("YYYY-MM-DD"),
+  });
+
+  function onChangeParams(event) {
+    let { name, value } = event.target;
+    setParams({ ...params, [name]: value });
+
+    if (value.length === 0) setLoad(true);
+  }
+
+  const onSearchProduct = () => {
+    setParams({ ...params, page: 1 });
+    setLoad(true);
+  };
+
+  const onPagination = (page) => {
+    console.log("ini pagination", params, page);
+    setParams({ ...params, page });
+    searchProduct();
+  };
+
+  const searchProduct = () => {
+    showLoading();
+
+    console.log("search", params);
+
+    axios
+      .get("/api/v1/customer/product", { params })
+      .then((response) => {
+        setProducts(response.data.data);
+
+        const { total } = response.data.pagination;
+
+        let resultTotalPage = Math.ceil(total / params.per_page);
+
+        setTotalPage(resultTotalPage);
+      })
+      .finally(() => {
+        hideLoading();
+        setLoad(false);
+      });
+  };
+
+  useEffect(() => {
+    // showLoading()
+    searchProduct();
+  }, [load]);
+  return (
+    <section className="">
+      <NavBreadcrumb navList={navList} />
+
+      <div className="flex justify-center">
+        <SearchProduct
+          q={params.q}
+          start_date={params.start_date}
+          end_date={params.end_date}
+          onClickSearch={onSearchProduct}
+          onChangeValue={onChangeParams}
+        />
+      </div>
+
+      <div className="mt-8 mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 py-10">
+        <ListProductCust dataProduct={products} />
+      </div>
+
+      <PaginationButton dataProduct={products} currentPage={params.page} onPage={onPagination} totalPage={totalPage} />
+    </section>
+  );
+}
 // /* eslint-disable react-hooks/exhaustive-deps */
 // import NavBreadcrumb from "../components/NavBreadcrumb";
 // import SearchProduct from "../components/customer/SearchProduct";
