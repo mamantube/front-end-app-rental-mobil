@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "axios": "^1.6.8",
+    "daisyui": "^5.7.9",
     "formik": "^2.4.5",
     "localforage": "^1.10.0",
     "lucide-react": "^1.27.0",
