@@ -7,10 +7,10 @@ import RentalMobil from "./pages/RentalMobil";
 // import BuatBaru from "./pages/admin/data-mobil/BuatBaru";
 // import DataPengguna from "./pages/admin/data-pengguna";
 // import DataTransaksi from "./pages/admin/data-transaksi";
-// import Login from "./pages/Login";
-// import LayoutDefault from "./layouts/Default";
+import Login from "./pages/Login";
+import LayoutDefault from "./layouts/Default";
 // import EditDataMobil from "./pages/admin/data-mobil/EditDataMobil";
-// import Register from "./pages/customer/Register";
+import Register from "./pages/customer/Register";
 // import DashboardCust from "./layouts/DashboardCust";
 // import BerandaIdx from "./pages/customer/beranda/index";
 // import DaftarSewa from "./pages/customer/daftar-sewa/DaftarSewa";
@@ -51,13 +51,12 @@ export default function App() {
           <Route path="data-mobil" Component={RentalMobil} />
         </Route>
 
-        {/* <Route Component={LayoutDefault}>
+        <Route Component={LayoutDefault}>
           <Route path="/login" Component={Login} />
           <Route path="/register" Component={Register} />
-          <Route path="/Forbidden" Component={ForbiddenAccess} />
-          <Route path="/*" element={<h1>Page Not Found :( </h1>} />
-
-        </Route> */}
+          {/* <Route path="/Forbidden" Component={ForbiddenAccess} />
+          <Route path="/*" element={<h1>Page Not Found :( </h1>} /> */}
+        </Route>
 
       </Routes>
     </BrowserRouter>
