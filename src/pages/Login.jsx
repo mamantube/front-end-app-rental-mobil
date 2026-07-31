@@ -1,3 +1,156 @@
+import FormAuth from "../components/FormAuth";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import useLoading from "../hooks/useLoading";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Navigate, NavLink } from "react-router-dom";
+import useAxios from "../hooks/useAxios";
+
+export default function Login() {
+  const schema = Yup.object({
+    email: Yup.string()
+      .required("Email harus diisi")
+      .email("Format email salah"),
+    password: Yup.string()
+      .required("Password harus diisi")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/,
+        "Minimal 6 karakter, satu huruf besar dan satu angka",
+      ),
+  });
+
+  const initialForm = {
+    email: "",
+    password: "",
+  };
+
+  const { showLoading, hideLoading } = useLoading();
+  const dispatch = useDispatch();
+  const navigateTo = useNavigate();
+  const axios = useAxios();
+
+  function onSubmitForm(values) {
+    showLoading();
+    axios
+      .post("api/v1/user/login", values)
+      .then((response) => {
+        let { token, role_user, user_id } = response.data.data;
+
+        localStorage.setItem("role", role_user);
+        localStorage.setItem("token", token);
+        localStorage.setItem("id", user_id);
+
+        dispatch({ type: "SET_TOKEN", value: token });
+        dispatch({ type: "SET_ROLE", value: role_user });
+        dispatch({ type: "SET_USER_ID", value: user_id });
+        // console.log("INI", response.data.data);
+        toast.success("Login Berhasil");
+        navigateTo(
+          role_user === "admin" ? "/admin/data-mobil" : "/customer/beranda",
+        );
+      })
+      .catch((error) => {
+        let { message } = error.response.data;
+        toast.error(message);
+      })
+      .finally(() => {
+        hideLoading();
+      });
+  }
+
+  const toBeranda = () => {
+    navigateTo("/");
+  };
+
+  const Formik = useFormik({
+    initialValues: initialForm,
+    validationSchema: schema,
+    onSubmit: onSubmitForm,
+  });
+
+  const { token, role, id } = useSelector((store) => store.user);
+  //   const { role } = useSelector((store) => store.user);
+
+  if (token && id) {
+    if (role === "admin") return <Navigate to="/admin/data-mobil" replace />;
+    else if (role === "customer")
+      return <Navigate to="/customer/beranda" replace />;
+  }
+
+  return (
+    <section className="flex flex-col min-h-screen items-center justify-center px-4">
+        <div>
+            <h1 className=" text-black text-3xl font-semibold mb-8">MAMAN RENTAL MOBIL</h1>
+        </div>
+      <FormAuth title="Login" subTitle="Masukkan Email dan Password">
+        <form onSubmit={Formik.handleSubmit} className="space-y-4 mt-4">
+          <div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              className={`input input-neutral w-full bg-white text-black ${
+                Formik.touched.email && Formik.errors.email ? "input-error" : ""
+              }`}
+              value={Formik.values.email}
+              onChange={Formik.handleChange}
+              onBlur={Formik.handleBlur}
+              autoComplete="off"
+            />
+
+            {Formik.touched.email && Formik.errors.email && (
+              <p className="mt-1 text-sm text-error">{Formik.errors.email}</p>
+            )}
+          </div>
+
+          <div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className={`input input-neutral bg-white text-black w-full ${
+                Formik.touched.password && Formik.errors.password
+                  ? "input-error"
+                  : ""
+              }`}
+              value={Formik.values.password}
+              onChange={Formik.handleChange}
+              onBlur={Formik.handleBlur}
+              autoComplete="off"
+            />
+
+            {Formik.touched.password && Formik.errors.password && (
+              <p className="mt-1 text-sm text-error">
+                {Formik.errors.password}
+              </p>
+            )}
+          </div>
+
+          <button type="submit" className="btn bg-gray-700 hover:bg-gray-800 w-full">
+            Masuk
+          </button>
+
+          <div className="text-center text-sm text-black">
+            Belum mempunyai akun?{" "}
+            <NavLink to="/register" className="link link-primary">
+              Daftar di sini
+            </NavLink>
+          </div>
+
+          <button
+            type="button"
+            onClick={toBeranda}
+            className="btn btn-outline bg-gray-700 hover:bg-gray-900 w-full"
+          >
+            Ke Beranda
+          </button>
+        </form>
+      </FormAuth>
+    </section>
+  );
+}
+
 // import FormAuth from "../components/FormAuth";
 // import { Button, Form } from "react-bootstrap";
 // import { useFormik } from "formik";
