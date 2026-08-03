@@ -80,9 +80,11 @@ export default function Login() {
 
   return (
     <section className="flex flex-col min-h-screen items-center justify-center px-4">
-        <div>
-            <h1 className=" text-black text-3xl font-semibold mb-8">MAMAN RENTAL MOBIL</h1>
-        </div>
+      <div>
+        <h1 className=" text-black text-3xl font-semibold mb-8">
+          MAMAN RENTAL MOBIL
+        </h1>
+      </div>
       <FormAuth title="Login" subTitle="Masukkan Email dan Password">
         <form onSubmit={Formik.handleSubmit} className="space-y-4 mt-4">
           <div>
@@ -127,7 +129,10 @@ export default function Login() {
             )}
           </div>
 
-          <button type="submit" className="btn bg-gray-700 hover:bg-gray-800 w-full">
+          <button
+            type="submit"
+            className="btn bg-gray-700 hover:bg-gray-800 w-full"
+          >
             Masuk
           </button>
 
