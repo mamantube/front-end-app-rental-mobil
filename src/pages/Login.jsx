@@ -35,16 +35,18 @@ export default function Login() {
     axios
       .post("api/v1/user/login", values)
       .then((response) => {
-        let { token, role_user, user_id } = response.data.data;
+        let { token, role_user, user_id, first_name } = response.data.data;
 
         localStorage.setItem("role", role_user);
         localStorage.setItem("token", token);
         localStorage.setItem("id", user_id);
+        localStorage.setItem("first_name", first_name)
 
         dispatch({ type: "SET_TOKEN", value: token });
         dispatch({ type: "SET_ROLE", value: role_user });
         dispatch({ type: "SET_USER_ID", value: user_id });
-        // console.log("INI", response.data.data);
+        dispatch({ type: "SET_FIRTS_NAME", value: first_name })
+        console.log("INI USER DATA", response.data.data);
         toast.success("Login Berhasil");
         navigateTo(
           role_user === "admin" ? "/admin/data-mobil" : "/customer/beranda",
