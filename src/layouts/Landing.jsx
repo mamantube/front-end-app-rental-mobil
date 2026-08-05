@@ -40,8 +40,8 @@ export default function LayoutLanding() {
             <NavLink to="/">MAREMO</NavLink>
           </h1>
           <div className="hidden gap-4 text-gray-800 font-medium lg:flex">
-            <NavLink className="transition ease-in-out duration-200 hover:scale-110 active:font-semibold">Beranda</NavLink>
-            <NavLink className="transition  ease-in-out duration-200 hover:scale-110 active:font-semibold">Rental Mobil</NavLink>
+            <NavLink to="/" className="transition ease-in-out duration-200 hover:scale-110 active:font-semibold">Beranda</NavLink>
+            <NavLink to="/data-mobil" className="transition  ease-in-out duration-200 hover:scale-110 active:font-semibold">Rental Mobil</NavLink>
           </div>
         </div>
 
@@ -83,8 +83,8 @@ export default function LayoutLanding() {
           className={`fixed z-10 top-16 overflow-hidden shadow-lg bg-white w-screen border-1.5 transition-all duration-300 lg:hidden ${show ? "block" : "hidden"}`}
         >
           <div className="flex flex-col gap-2 py-4 px-6">
-            <NavLink className="">Beranda</NavLink>
-            <NavLink className="">Rental Mobil</NavLink>
+            <NavLink to="/" className="">Beranda</NavLink>
+            <NavLink to="/data-mobil" className="">Rental Mobil</NavLink>
             <button className="items-center cursor-pointer rounded-lg border w-28 bg-gray-800 text-white border-gray-800 hover:scale-110 duration-500 transition hover:bg-gray-800 hover:text-white " onClick={onToLogin} >
               Book Now
             </button>
@@ -145,7 +145,7 @@ export default function LayoutLanding() {
         </div>
       </nav> */}
 
-      <div className=" mt-5">
+      <div className=" mt-16 bg-[#ffffff]">
         <Outlet key="layout-landing" />
       </div>
 
