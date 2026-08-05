@@ -5,10 +5,9 @@ import CardProduct from "../CardProduct";
 export default function ListProductCust({ dataProduct = [] }) {
     const navigateTo = useNavigate();
     const token = localStorage.getItem("token")
-
     function productbtnCard(_id) {
       if (token) {
-        navigateTo(`/customer/rental-customer/detail-product/${_id}`)
+        navigateTo(`/customer/rental-customer/detail-produk/${_id}`)
       } else {
         navigateTo("/login");
       }
@@ -19,7 +18,7 @@ export default function ListProductCust({ dataProduct = [] }) {
     return (
         <>
           {dataProduct.map((detailProduct, index) => (
-            <div key={`card-product-${index + 1}`} className="mb-4">
+            <div key={`card-product-${index + 1}`} className="mb-4 text-gray-800">
               <CardProduct product={detailProduct} onClickBtnCard={() => productbtnCard(detailProduct._id)}  />
             </div>
           ))}
