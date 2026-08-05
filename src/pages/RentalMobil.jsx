@@ -79,10 +79,13 @@ export default function RentalMobil() {
     searchProduct();
   }, [load]);
   return (
-    <section className="">
-      <NavBreadcrumb navList={navList} />
+    <section className="px-4">
+      <div className="pt-4 ps-10">
+        <NavBreadcrumb navList={navList} />
 
-      <div className="flex justify-center">
+      </div>
+
+      <div className="flex justify-center text-black">
         <SearchProduct
           q={params.q}
           start_date={params.start_date}
