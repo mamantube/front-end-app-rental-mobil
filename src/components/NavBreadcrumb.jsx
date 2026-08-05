@@ -23,7 +23,7 @@ export default function NavBreadcrumb( { navList = [] }) {
                             {isActive ? (
                                 <span className="font-semibold text-gray-900 cursor-defauld">{ title }</span>
                             ) : (
-                                <button type="button" onClick={onNavigateTo} className="transition-colors hover:text-blue-600 hover:underline">
+                                <button type="button" onClick={() => onNavigateTo(to)} className="transition-colors hover:text-blue-600 hover:underline cursor-pointer">
                                     { title }
                                 </button>
                             )}
