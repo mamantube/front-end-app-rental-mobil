@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
   import { Search } from "lucide-react";
   import moment from "moment";
 
