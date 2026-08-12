@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { UserRound, ChevronRight } from "lucide-react";
+import { ToastContainer } from "react-toastify"
 
 export default function DashboardCust() {
   const navigateTo = useNavigate();
@@ -68,7 +69,7 @@ export default function DashboardCust() {
               <NavLink>Profil</NavLink>
             </li>
             <li className="hover:bg-gray-100">
-              <NavLink>Transaksi</NavLink>
+              <NavLink to="/customer/data-transaksi">Transaksi</NavLink>
             </li>
             <li className="hover:bg-gray-100">
               <NavLink onClick={onLogout}>Log Out</NavLink>
@@ -132,7 +133,11 @@ export default function DashboardCust() {
                     <summary className="flex text-base gap-2 items-center"> <UserRound /> { first_name } </summary>
                     <ul className="mt-4">
                         <li className="flex items-baseline"> <ChevronRight size={15} strokeWidth={1.5} absoluteStrokeWidth />Profile</li>
-                        <li className="flex items-baseline"> <ChevronRight size={15} strokeWidth={1.5} />Transaksi</li>
+                        <li className="flex items-baseline">
+                          <NavLink to="/customer/daftar-sewa">
+                            <ChevronRight size={15} strokeWidth={1.5} />Transaksi
+                            </NavLink> 
+                        </li>
                         <li className="flex items-baseline"> <ChevronRight size={15} strokeWidth={1.5} /> Log Out</li>
                     </ul>
                 </details>
@@ -194,6 +199,7 @@ export default function DashboardCust() {
                   </div>
                 </div>
               </nav> */}
+        <ToastContainer position="top-right" />
 
       <div className=" mt-16 bg-[#ffffff]">
         <Outlet key="layout-landing" />
