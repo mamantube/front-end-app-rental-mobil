@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import useLoading from "../hooks/useLoading";
 import useAxios from "../hooks/useAxios";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ListProductCust from "../components/customer/ListProductCust";
 
@@ -31,6 +31,8 @@ export default function Beranda() {
   const axios = useAxios();
   const [products, setProducts] = useState([]);
   const { token, role } = useSelector((store) => store.user);
+
+  
 
   const params = {
     q: "",
@@ -83,7 +85,7 @@ export default function Beranda() {
 
       <section className="text-center mt-16">
         <h2 className="text-3xl font-bold mb-4">Kenapa Memilih Kami?</h2>
-        <div className="flex flex-col md:flex-row gap-8 px-4 mt-8">
+        <div className="flex flex-col md:flex-row gap-8 px-4 mt-8 text-gray-700">
           <div className="px-4 py-6 border rounded shadow">
             <h3 className="text-xl font-semibold mb-2">Banyak Pilihan</h3>
             <p>Tersedia berbagai jenis mobil tersedia sesuai kebutuhan Anda dan keluarga</p>
@@ -99,16 +101,18 @@ export default function Beranda() {
         </div>
       </section>
 
-      <section className="text-center mt-16">
+      <section className="text-center mt-16 text-gray-700">
         <h1 className="text-2xl font-bold text-center">Armada Kami</h1>
         <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 py-10">
           <ListProductCust dataProduct={products} />
         </div>
 
         <div>
-          <button className="cursor-pointer rounded-lg border border-gray-800 px-4 hover:scale-110 duration-500 transition hover:bg-gray-800 hover:text-white">
-            Lihat Lebih Banyak
-          </button>
+          <NavLink to="/data-mobil">
+            <button className="cursor-pointer text-gray-700 rounded-lg border border-gray-800 px-4 hover:scale-110 duration-500 transition hover:bg-gray-800 hover:text-white">
+              Lihat Lebih Banyak
+            </button>
+          </NavLink>
         </div>
       </section>
 
