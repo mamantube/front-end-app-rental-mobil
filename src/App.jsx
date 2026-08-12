@@ -11,12 +11,12 @@ import Login from "./pages/Login";
 import LayoutDefault from "./layouts/Default";
 // import EditDataMobil from "./pages/admin/data-mobil/EditDataMobil";
 import Register from "./pages/customer/Register";
-// import DashboardCust from "./layouts/DashboardCust";
-// import BerandaIdx from "./pages/customer/beranda/index";
-// import DaftarSewa from "./pages/customer/daftar-sewa/DaftarSewa";
+import DashboardCust from "./layouts/DashboardCust";
+import BerandaIdx from "./pages/customer/beranda/index";
+import Transaction from "./pages/customer/daftar-sewa/Transaction";
 // import ForbiddenAccess from "./pages/ForbiddenAcces";
-// import RentalCust from "./pages/customer/rental-mobil/RentalCust";
-// import DetailProductCust from "./pages/customer/rental-mobil/DetailProductCust";
+import RentalCust from "./pages/customer/rental-mobil/RentalCust";
+import DetailProductCust from "./pages/customer/rental-mobil/DetailProductCust";
 // import ProfilAnda from "./pages/customer/profil-anda/ProfilAnda";
 
 
@@ -34,7 +34,7 @@ export default function App() {
 
           <Route path="data-pengguna" Component={DataPengguna} />
           <Route path="data-transaksi" Component={DataTransaksi} />
-        </Route>
+        </Route> */}
  
         <Route path="customer" Component={DashboardCust}>
           <Route path="beranda" Component={BerandaIdx} />
@@ -42,9 +42,9 @@ export default function App() {
             <Route index Component={RentalCust} />
             <Route path="detail-produk/:product_id" Component={DetailProductCust} />
           </Route>
-          <Route path="data-transaksi" Component={DaftarSewa} />
-          <Route path="profile-anda" Component={ProfilAnda} />
-        </Route> */}
+          <Route path="data-transaksi" Component={Transaction} />
+          {/* <Route path="profile-anda" Component={ProfilAnda} /> */}
+        </Route>
         
         <Route path="/" Component={LayoutLanding}>
           <Route index path="/" Component={Beranda} />
