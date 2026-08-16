@@ -87,7 +87,7 @@ export default function Transaction() {
 
 
     return (
-        <section className="min-h-screen bg-gray-50 px-4 pt-24 sm:px-6 lg:px8">
+        <section className="min-h-screen bg-gray-50 px-4 pb-8 pt-16 sm:px-6 lg:px8">
             <div className="mx-auto max-w-7xl">
                 <div className="mb-8 text-center">
                     <h1 className="text-3xl font-bold text-black">Data Transaksi</h1>
@@ -114,7 +114,7 @@ export default function Transaction() {
                             );
 
                             return (
-                                <div key={transaction._id} className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-200">
+                                <div key={transaction._id} className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-400">
                                     <div className="flex flex-col gap-3 border-b border-gray-200 px-5 py-4 sm:flex-row sm:items-center sm:justify-between text-black">
                                         <div>
                                             <p className="text-xs font-medium uppercase tracking-wide text-gray-400">Order ID</p>
@@ -128,22 +128,26 @@ export default function Transaction() {
                                     </div>
                                     <div className="flex flex-col gap-3 p-5 md:flex-row">
                                         {product?.storage_id.secure_url ? (
-                                            <img src={product.storage_id.secure_url} alt={product.name} className="w-3xs object-cover"/>
+                                            <img src={product.storage_id.secure_url} alt={product.name} className="w-1/8 object-cover"/>
                                         ) : (
                                             <div className="text-sm text-gray-800">
                                                 Gambar tidak tersedia
                                             </div>
                                         )}
-                                    </div>
-                                    <div className="flex flex-1 flex-col justify-between">
-                                        <div>
-                                            <h2 className="text-xl font-bold text-gray-800">
-                                                {product.name}
-                                            </h2>
+                                        <div className="flex flex-1 flex-col ps-6 justify-between">
+                                            <div>
+                                                <h2 className="text-xl font-bold text-gray-800">
+                                                    {product.name}
+                                                </h2>
 
-                                            { product?.price && (
-                                                <p className="mt-1 text-sm font-medium text-gray-500"> { formatIDR(product.price)} </p>
-                                            )}
+                                                { product?.price && (
+                                                    <p className="mt-1 text-sm font-medium text-gray-500"> { formatIDR(product.price)} </p>
+                                                )}
+
+                                                {product?.description && (
+                                                    <p className="mt-1 text-sm text-gray-700"> { product.description} </p>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="border-t border-gray-200 bg-gray-50 px-5 py-5">
@@ -161,7 +165,7 @@ export default function Transaction() {
                                                 </p>
 
                                                 <p className="mt-1 font-semibold text-gray-700">
-                                                    {moment(transaction.rental_duration.start_date).format("DD MMMM YYYY")}
+                                                    {moment(transaction.rental_duration.end_date).format("DD MMMM YYYY")}
                                                 </p>
                                             </div>
                                             <div>
