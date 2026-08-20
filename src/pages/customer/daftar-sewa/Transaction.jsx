@@ -4,6 +4,7 @@ import useAxios from "../../../hooks/useAxios";
 import { toast } from "react-toastify";
 import moment from "moment/moment";
 import { formatIDR } from "../../../utils/formater";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -13,6 +14,7 @@ export default function Transaction() {
     const { showLoading, hideLoading } = useLoading();
     const [ transactions, setTransactions ] = useState([]);
     
+    const navigateTo = useNavigate();
     const axios = useAxios();
 
     const getTransactions = () => {
@@ -42,6 +44,38 @@ export default function Transaction() {
     useEffect(() => {
         getTransactions();
     }, []);
+
+    const onPay = (transaction) => {
+        if(!transaction.token) {
+            toast.error("Token Pembayaran tidak ditemukan")
+        }
+
+        window.snap.pay(transaction.token, {
+            onSuccess: function () {
+                toast.success("Pembayaran Berhasil");
+
+                getTransactions();
+                navigateTo("/customer/data-transaksi")
+            },
+            onPending: function () {
+                toast.info("Masih menunggu pembayaran");
+
+                getTransactions();
+                navigateTo("/customer/data-transaksi")
+            },
+            onClose: function () {
+                toast.info("Anda menutup halaman pemayaran")
+
+                navigateTo("/customer/data-transaksi")
+
+            },
+            onError: function () {
+                toast.error("Pembayaran gagal")
+                navigateTo("/customer/data-transaksi")
+            }
+
+        })
+    }
 
     const getRentalDuration = (startDate, endDate) => {
         const start = moment(startDate);
@@ -126,7 +160,7 @@ export default function Transaction() {
                                             { statusText(transaction.status)}
                                         </span>
                                     </div>
-                                    <div className="flex flex-col gap-3 p-5 md:flex-row">
+                                    <div className="flex flex-col  gap-3 p-4 md:flex-row">
                                         {product?.storage_id.secure_url ? (
                                             <img src={product.storage_id.secure_url} alt={product.name} className="w-1/8 object-cover"/>
                                         ) : (
@@ -134,7 +168,7 @@ export default function Transaction() {
                                                 Gambar tidak tersedia
                                             </div>
                                         )}
-                                        <div className="flex flex-1 flex-col ps-6 justify-between">
+                                        <div className="flex flex-col ps-6 justify-between">
                                             <div>
                                                 <h2 className="text-xl font-bold text-gray-800">
                                                     {product.name}
@@ -144,10 +178,27 @@ export default function Transaction() {
                                                     <p className="mt-1 text-sm font-medium text-gray-500"> { formatIDR(product.price)} </p>
                                                 )}
 
-                                                {product?.description && (
+                                                {/* {product?.description && (
                                                     <p className="mt-1 text-sm text-gray-700"> { product.description} </p>
-                                                )}
+                                                )} */}
                                             </div>
+                                        </div>
+                                        <div className=" text-black text-center ms-19">
+                                            {transaction.payment_type === "qris" && transaction.status === "pending" && (
+                                                <div>
+                                                    <p>Metode Pembayaran: <br /> Qris</p>
+                                                    <button onClick={() => onPay(transaction)}>Bayar Sekarang</button>
+                                                    
+                                                </div>
+                                            )}
+
+                                            {transaction.payment_type === "bank_transfer" && transaction.payment_detail?.va_number && (
+                                                <div>
+                                                    <p>Metode Pembayaran: <br /> Virtual Account</p>
+                                                    <p>Nomor VA: <br /> {transaction.payment_detail.va_number}</p>
+                                                    <p>{transaction.payment_detail.bank}</p>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="border-t border-gray-200 bg-gray-50 px-5 py-5">
