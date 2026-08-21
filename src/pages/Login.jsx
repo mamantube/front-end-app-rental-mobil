@@ -49,7 +49,7 @@ export default function Login() {
         console.log("INI USER DATA", response.data.data);
         toast.success("Login Berhasil");
         navigateTo(
-          role_user === "admin" ? "/admin/data-mobil" : "/customer/beranda",
+          role_user === "admin" ? "/admin/data-transaksi" : "/customer/beranda",
         );
       })
       .catch((error) => {
