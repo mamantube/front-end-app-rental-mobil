@@ -2,11 +2,11 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import LayoutLanding from "./layouts/Landing";
 import Beranda from "./pages/Beranda";
 import RentalMobil from "./pages/RentalMobil";
-// import LayoutDashboard from "./layouts/Dashboard";
+import LayoutDashboard from "./layouts/Dashboard";
 // import DataMobil from "./pages/admin/data-mobil/Index";
 // import BuatBaru from "./pages/admin/data-mobil/BuatBaru";
 // import DataPengguna from "./pages/admin/data-pengguna";
-// import DataTransaksi from "./pages/admin/data-transaksi";
+import DataTransaksi from "./pages/admin/data-transaksi";
 import Login from "./pages/Login";
 import LayoutDefault from "./layouts/Default";
 // import EditDataMobil from "./pages/admin/data-mobil/EditDataMobil";
@@ -25,16 +25,16 @@ export default function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* <Route path="admin" Component={LayoutDashboard}>
-          <Route path="data-mobil">
+        <Route path="admin" Component={LayoutDashboard}>
+          <Route index path="data-transaksi" Component={DataTransaksi} />
+          {/* <Route path="data-mobil">
             <Route index Component={DataMobil} />
             <Route path="buat-baru" Component={BuatBaru} />
             <Route path="edit/:product_id" Component={EditDataMobil} />
           </Route>
 
-          <Route path="data-pengguna" Component={DataPengguna} />
-          <Route path="data-transaksi" Component={DataTransaksi} />
-        </Route> */}
+          <Route path="data-pengguna" Component={DataPengguna} /> */}
+        </Route>
  
         <Route path="customer" Component={DashboardCust}>
           <Route path="beranda" Component={BerandaIdx} />
