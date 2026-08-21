@@ -1,112 +1,122 @@
-// import { Outlet, NavLink, Navigate, useNavigate } from "react-router-dom";
-// import { Navbar, Container, Button, Nav } from "react-bootstrap";
-// import { useState } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import Footer from "../components/Footer";
-// import { ToastContainer } from "react-toastify";
-// import useLoading from "../hooks/useLoading";
-// import Loading from "../components/Loading";
+import { FileText, Car, User } from "lucide-react";
+import { Outlet } from "react-router-dom";
+import { NavLink, useNavigate, Navigate } from "react-router-dom";
 
-// export default function LayoutDashboard() {
-//   const [show, setShow] = useState(false);
+export default function LayoutDashboard() {
+  const navigateTo = useNavigate();
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
-//   function onShowMenu() {
-//     setShow(!show);
-//   }
+  if (!token) {
+    <Navigate to="/" replace/>
 
-//   let cssShowMenu = show ? "d-block" : "d-none";
+    localStorage.clear();
+  }
 
-//   const dispatch = useDispatch();
+  if (token && role !== "admin") {
+    <Navigate to="/forbidden" />
 
-//   const navigateTo = useNavigate();
+    localStorage.clear();
+  }
 
-//   function onLogout() {
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("role")
+  const onLogOut = () => {
+    localStorage.clear();
 
-//     dispatch({ type: "SET_TOKEN", value: null });
-//     dispatch({ type: "SET_ROLE", value: null });
+    navigateTo("/")
+  }
+  return (
+    <div className="drawer lg:drawer-open">
+      <input
+        id="my-drawer-4"
+        type="checkbox"
+        className="drawer-toggle inline"
+      />
+      <div className="drawer-content">
+        {/* Navbar */}
+        <nav className="navbar w-full bg-gray-700 fixed absolute">
+          <label
+            htmlFor="my-drawer-4"
+            aria-label="open sidebar"
+            className="btn btn-square btn-ghost drawer-button"
+          >
+            {/* Sidebar toggle icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2"
+              fill="none"
+              stroke="currentColor"
+              className="my-1.5 inline-block size-4"
+            >
+              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+              <path d="M9 4v16"></path>
+              <path d="M14 10l2 2l-2 2"></path>
+            </svg>
+          </label>
+          <div className="px-4">MAREMO</div>
+        </nav>
 
-//     navigateTo("/");
-//   }
+        <div className="bg-white h-screen">
+          <Outlet />
+        </div>
+      </div>
 
-//   const { isLoading } = useLoading();
+      <div className="drawer-side is-drawer-close:overflow-visible">
+        <label
+          htmlFor="my-drawer-4"
+          aria-label="close sidebar"
+          className="drawer-overlay"
+        ></label>
+        <div className="flex min-h-full flex-col items-start bg-gray-800 is-drawer-close:w-14 is-drawer-open:w-64">
+          {/* Sidebar content here */}
+          <ul className="menu w-full grow">
+            {/* List item */}
+            <li>
+              <NavLink to="/admin/data-transaksi">
+                <button
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center"
+                  data-tip="Data Transaksi"
+                >
+                  {/* Data Transaksi icon */}
+                  <FileText className="my-1.5 inline-block size-4" />
+                  
+                  <span className="is-drawer-close:hidden ms-2">Data Transaksi</span>
+                </button>
+              </NavLink>
+            </li>
 
-//   let componentLoading;
-//   if (isLoading) componentLoading = <Loading />;
-
-//   const { token, role } = useSelector((store) => store.user);
-
-//   if (!token) return <Navigate to="/" replace />;
-  
-//   if (token && role !== "admin") return <Navigate to="/forbidden" replace />
-
-
-//   return (
-//     <>
-//       <ToastContainer position="top-right" />
-//       {componentLoading}
-//       <Navbar
-//         variant="light"
-//         className=" border-bottom border-light shadow-sm py-3"
-//         // style={{ height: "5rem"}}
-//         expand="md"
-//         collapseOnSelect
-//       >
-//         <Container>
-//           <Navbar.Brand>
-//             <h3 className="text-h3">Maremo</h3>
-//           </Navbar.Brand>
-
-//           <Button
-//             size="sm"
-//             variant="outline-dark"
-//             className="d-md-none d-block rounded-0"
-//             onClick={onShowMenu}
-//           >
-//             <i className="bi bi-list"></i>
-//           </Button>
-
-//           <Navbar.Collapse id="navbar--dashboard" className={cssShowMenu}>
-//             <Nav className="me-auto">
-//               <NavLink
-//                 to="/admin/data-mobil"
-//                 className=" ms-md-2 inactive"
-//                 activeclassname="active"
-//               >
-//                 Data Mobil
-//               </NavLink>
-//               <NavLink
-//                 to="/admin/data-transaksi"
-//                 className="mx-md-4 my-md-0 my-2 inactive"
-//                 activeclassname="active"
-//               >
-//                 Transaksi
-//               </NavLink>
-//               <NavLink
-//                 to="/admin/data-pengguna"
-//                 className="inactive"
-//                 activeclassname="active"
-//               >
-//                 Pengguna
-//               </NavLink>
-//             </Nav>
-//             <Button
-//               variant="outline-danger"
-//               className=" rounded-0 my-md-0 my-2"
-//               onClick={onLogout}
-//             >
-//               Keluar
-//             </Button>
-//           </Navbar.Collapse>
-//         </Container>
-//       </Navbar>
-
-//       <Container className=" my-5">
-//         <Outlet key="layout-dashboard" />
-//       </Container>
-
-//       <Footer />
-//     </>
-//   );
-// }
+            {/* List item */}
+            <li>
+              <NavLink to="/admin/data-kendaraan">
+                <button
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center"
+                  data-tip="Data Kendaraan"
+                >
+                  {/* Data Kendaraan icon */}
+                  <Car className="my-1.5 inline-block size-4"/>
+                
+                  <span className="is-drawer-close:hidden ms-2">Data Kendaraan</span>
+                </button>
+              </NavLink>
+            </li>
+            
+            {/* List item */}
+            <li>
+                <button onClick={onLogOut}
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Log Out"
+                >
+                  {/* Data Kendaraan icon */}
+                  <User className="my-1.5 inline-block size-4"/>
+                
+                  <span className="is-drawer-close:hidden">Log Out</span>
+                </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
