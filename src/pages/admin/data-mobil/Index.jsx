@@ -1,119 +1,142 @@
-// /* eslint-disable react-hooks/exhaustive-deps */
-// import NavBreadcrumb from "../../../components/NavBreadcrumb";
-// import DataMobilFilter from "../../../components/admin/data-mobil/DataMobilFilter";
-// import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-// // import { toast } from "react-toastify";
-// import useLoading from "../../../hooks/useLoading";
-// import useAxios from "../../../hooks/useAxios";
-// import ListProduct from "../../../components/admin/data-mobil/ListProduct";
-// import PaginationButton from "../../../components/PaginationButton";
+import NavBreadcrumb from "../../../components/NavBreadcrumb";
+import DataMobilFilter from "../../../components/admin/data-mobil/DataMobilFilter";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useLoading from "../../../hooks/useLoading";
+import useAxios from "../../../hooks/useAxios";
+import ListProduct from "../../../components/admin/data-mobil/ListProduct";
+import PaginationButton from "../../../components/PaginationButton";
 
-// let navList = [
-//   {
-//     to: "/admin/data-mobil",
-//     title: "Data Mobil",
-//     isActive: true,
-//   },
-// ];
+const navList = [
+  {
+    to: "/admin/data-transaksi",
+    title: "Data Transaksi",
+    isActive: false,
+  },
+  {
+    to: "/admin/data-mobil",
+    title: "Data Mobil",
+    isActive: true,
+  },
+];
 
-// export default function DataMobil() {
-//   const navigateTo = useNavigate();
-//   const { showLoading, hideLoading } = useLoading();
-//   const [load, setLoad] = useState(true);
+export default function DataMobil() {
+  const navigateTo = useNavigate();
+  const { showLoading, hideLoading } = useLoading();
+  const axios = useAxios();
 
-//   const [params, setParams] = useState({
-//     q: "",
-//     sort_by: "",
-//     page: 1,
-//     per_page: 20,
-//   });
+  const [products, setProducts] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
 
-//   const onChangeParams = (event) => {
-//     let { name, value } = event.target;
-//     setParams({ ...params, [name]: value });
+  // Nilai yang ada di input
+  const [params, setParams] = useState({
+    q: "",
+    sort_by: "",
+  });
 
-//     if (value.length === 0) setLoad(true);
-//   };
+  // Nilai yang digunakan untuk request API
+  const [searchParams, setSearchParams] = useState({
+    q: "",
+    sort_by: "",
+    page: 1,
+    per_page: 8,
+  });
 
-//   function onSearchProduct() {
-//     setParams({ ...params, page: 1 });
-//     setLoad(true);
-//   }
+  // Ketika input berubah
+  const onChangeParams = (event) => {
+    const { name, value } = event.target;
 
-//   const [totalPage, setTotalPage] = useState(0);
+    setParams((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-//   const onPagePagination = (page) => {
-//     // console.log("ini", page, params);
-//     setParams({ ...params, page });
+  // Tombol Cari Mobil
+  const onSearchProduct = () => {
+    setSearchParams((prev) => ({
+      ...prev,
+      q: params.q,
+      sort_by: params.sort_by,
+      page: 1,
+    }));
+  };
 
-//     setLoad(true);
-//     searchProduct();
-//   };
+  // Pagination
+  const onPagePagination = (page) => {
+    setSearchParams((prev) => ({
+      ...prev,
+      page,
+    }));
+  };
 
-//   const axios = useAxios();
+  // Request API
+  const searchProduct = async () => {
+    try {
+      showLoading();
 
-//   const [products, setProducts] = useState([]);
+      const response = await axios.get("/api/v1/product", {
+        params: searchParams,
+      });
 
-//   function searchProduct() {
-//     showLoading();
+      console.log("DATA PRODUCT:", response.data);
 
-//     // console.log("test", params);
+      setProducts(response.data.data || []);
 
-//     axios
-//       .get("api/v1/product", { params })
-//       .then((response) => {
-//         setProducts(response.data.data);
-//         // console.log(response.data.data);
+      const total = response.data.pagination?.total || 0;
 
-//         const { total } = response.data.pagination;
+      const resultTotalPage = Math.ceil(total / searchParams.per_page);
 
-//         let resultTotalPage = Math.ceil(total / params.per_page);
+      setTotalPage(resultTotalPage);
+    } catch (error) {
+      console.error("ERROR GET PRODUCTS:", error.response?.data || error);
 
-//         setTotalPage(resultTotalPage);
-//       })
-//       // .catch((error) => {
-//       //     let messageError = error.response.data.message;
-//       //     // let { message } = errors[0];
-//       //     console.error("ERROR", error.response.data)
-//       //     toast.error(messageError)
-//       // })
-//       .finally(() => {
-//         hideLoading();
-//         setLoad(false);
-//       });
-//   }
+      setProducts([]);
+      setTotalPage(0);
+    } finally {
+      hideLoading();
+    }
+  };
 
-//   useEffect(() => {
-//     if (load) searchProduct();
+  useEffect(() => {
+    searchProduct();
+  }, [searchParams.page, searchParams.q, searchParams.sort_by]);
 
-//     // return () => {
-//     //     setLoad(false)
-//     //     setProducts([])
+  return (
+    <section
+      id="list-data-mobil"
+      className="min-h-screen bg-gray-50 px-4 pb-10"
+    >
+      <h2 className="mb-4 pt-4 text-center text-2xl font-semibold text-gray-700">
+        Data Kendaraan
+      </h2>
 
-//     // }
-//   }, [load]);
+      {/* Breadcrumb */}
+      <NavBreadcrumb navList={navList} />
 
-//   return (
-//     <section id="list--data--mobil" className=" min-vh-100">
-//       <NavBreadcrumb navList={navList} />
+      {/* Filter */}
+      <div className="flex justify-center mb-4">
+        <div className="w-3/4">
+          <DataMobilFilter
+            q={params.q}
+            sort_by={params.sort_by}
+            onChangeValue={onChangeParams}
+            onClickSearch={onSearchProduct}
+            onCreateNew={() => navigateTo("/admin/data-mobil/buat-baru")}
+          />
+        </div>
+      </div>
 
-//       <DataMobilFilter
-//         q={params.q}
-//         sort_by={params.sort_by}
-//         onChangeValue={onChangeParams}
-//         onClickSearch={onSearchProduct}
-//         onCreateNew={() => navigateTo("/admin/data-mobil/buat-baru")}
-//       />
+      {/* List Product */}
+      <ListProduct dataProduct={products} />
 
-//       <ListProduct dataProduct={products} />
-
-//       <PaginationButton
-//         dataProduct={products}
-//         currentPage={params.page}
-//         onPage={onPagePagination}
-//         totalPage={totalPage}
-//       />
-//     </section>
-//   );
-// }
+      {/* Pagination */}
+      <PaginationButton
+        dataProduct={products}
+        currentPage={searchParams.page}
+        onPage={onPagePagination}
+        totalPage={totalPage}
+      />
+    </section>
+  );
+}
