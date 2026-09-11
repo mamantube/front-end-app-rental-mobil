@@ -1,4 +1,4 @@
-import { FileText, Car, User } from "lucide-react";
+import { FileText, Car, User, LogOut  } from "lucide-react";
 import { Outlet } from "react-router-dom";
 import { NavLink, useNavigate, Navigate } from "react-router-dom";
 
@@ -33,13 +33,12 @@ export default function LayoutDashboard() {
       />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full bg-gray-700 fixed absolute">
+        <nav className="navbar w-full bg-gray-700 fixed z-10">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
             className="btn btn-square btn-ghost drawer-button"
           >
-            {/* Sidebar toggle icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -48,17 +47,17 @@ export default function LayoutDashboard() {
               strokeWidth="2"
               fill="none"
               stroke="currentColor"
-              className="my-1.5 inline-block size-4"
+              className="size-5"
             >
-              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-              <path d="M9 4v16"></path>
-              <path d="M14 10l2 2l-2 2"></path>
+              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+              <path d="M9 4v16" />
+              <path d="M14 10l2 2l-2 2" />
             </svg>
           </label>
           <div className="px-4">MAREMO</div>
         </nav>
 
-        <div className="bg-white h-screen">
+        <div className="bg-white pt-24">
           <Outlet />
         </div>
       </div>
@@ -74,9 +73,9 @@ export default function LayoutDashboard() {
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
-              <NavLink to="/admin/data-transaksi">
+              <NavLink to="/admin/data-transaksi" className="is-drawer-close:tooltip is-drawer-close:tooltip-right " data-tip="Transaksi">
                 <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center"
+                  className=" flex items-center"
                   data-tip="Data Transaksi"
                 >
                   {/* Data Transaksi icon */}
@@ -89,10 +88,10 @@ export default function LayoutDashboard() {
 
             {/* List item */}
             <li>
-              <NavLink to="/admin/data-kendaraan">
+              <NavLink to="/admin/data-mobil" className="is-drawer-close:tooltip is-drawer-close:tooltip-right " data-tip="Data Kendaraan">
                 <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right flex items-center"
-                  data-tip="Data Kendaraan"
+                  className=" flex items-center"
+                  
                 >
                   {/* Data Kendaraan icon */}
                   <Car className="my-1.5 inline-block size-4"/>
@@ -104,12 +103,27 @@ export default function LayoutDashboard() {
             
             {/* List item */}
             <li>
+              <NavLink to="/admin/data-customer" className="is-drawer-close:tooltip is-drawer-close:tooltip-right " data-tip="Data Customer">
+                <button
+                  className=" flex items-center"
+                  
+                >
+                  {/* Data Kendaraan icon */}
+                  <User className="my-1.5 inline-block size-4"/>
+                
+                  <span className="is-drawer-close:hidden ms-2">Data Customer</span>
+                </button>
+              </NavLink>
+            </li>
+
+            {/* List item */}
+            <li>
                 <button onClick={onLogOut}
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Log Out"
                 >
                   {/* Data Kendaraan icon */}
-                  <User className="my-1.5 inline-block size-4"/>
+                  <LogOut className="my-1.5 inline-block size-4" />
                 
                   <span className="is-drawer-close:hidden">Log Out</span>
                 </button>
