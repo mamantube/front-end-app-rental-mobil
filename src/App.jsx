@@ -3,7 +3,7 @@ import LayoutLanding from "./layouts/Landing";
 import Beranda from "./pages/Beranda";
 import RentalMobil from "./pages/RentalMobil";
 import LayoutDashboard from "./layouts/Dashboard";
-// import DataMobil from "./pages/admin/data-mobil/Index";
+import DataMobil from "./pages/admin/data-mobil/Index";
 // import BuatBaru from "./pages/admin/data-mobil/BuatBaru";
 // import DataPengguna from "./pages/admin/data-pengguna";
 import DataTransaksi from "./pages/admin/data-transaksi";
@@ -27,13 +27,13 @@ export default function App() {
 
         <Route path="admin" Component={LayoutDashboard}>
           <Route index path="data-transaksi" Component={DataTransaksi} />
-          {/* <Route path="data-mobil">
+          <Route path="data-mobil">
             <Route index Component={DataMobil} />
-            <Route path="buat-baru" Component={BuatBaru} />
-            <Route path="edit/:product_id" Component={EditDataMobil} />
+            {/* <Route path="buat-baru" Component={BuatBaru} />
+            <Route path="edit/:product_id" Component={EditDataMobil} /> */}
           </Route>
 
-          <Route path="data-pengguna" Component={DataPengguna} /> */}
+          {/* <Route path="data-pengguna" Component={DataPengguna} /> */}
         </Route>
  
         <Route path="customer" Component={DashboardCust}>
